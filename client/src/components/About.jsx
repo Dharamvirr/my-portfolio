@@ -147,41 +147,6 @@ const About = () => {
               ))}
             </div>
 
-            {/* GitHub stats embed with skeleton */}
-            <SpotlightCard className="glass-card p-5">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-gray-400 text-sm font-mono">// github/{personalInfo.githubUsername}</p>
-                <a
-                  href={personalInfo.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 text-xs flex items-center gap-1 transition-colors"
-                >
-                  View <FiExternalLink size={11} />
-                </a>
-              </div>
-              <div className="space-y-3">
-                {[
-                  `https://github-readme-streak-stats.herokuapp.com/?user=${personalInfo.githubUsername}&theme=tokyonight&hide_border=true&background=0d0d0d&ring=3b82f6&fire=a855f7&currStreakLabel=60a5fa`,
-                ].map((src, i) => (
-                  <div key={i} className="relative">
-                    <div className="img-skeleton w-full rounded-xl absolute inset-0" id={`gh-sk-${i}`} />
-                    <img
-                      src={src}
-                      alt={i === 0 ? 'GitHub contribution stats' : 'GitHub streak stats'}
-                      className="w-full rounded-xl relative z-10"
-                      loading="lazy"
-                      onLoad={() => { const el = document.getElementById(`gh-sk-${i}`); if (el) el.style.display = 'none' }}
-                      onError={(e) => {
-                        e.target.style.display = 'none'
-                        const el = document.getElementById(`gh-sk-${i}`)
-                        if (el) el.style.display = 'none'
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </SpotlightCard>
           </motion.div>
         </div>
       </motion.div>
