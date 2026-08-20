@@ -162,7 +162,6 @@ const About = () => {
               </div>
               <div className="space-y-3">
                 {[
-                  `https://github-readme-stats.vercel.app/api?username=${personalInfo.githubUsername}&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d0d0d&title_color=60a5fa&icon_color=a855f7&text_color=9ca3af&rank_icon=github`,
                   `https://github-readme-streak-stats.herokuapp.com/?user=${personalInfo.githubUsername}&theme=tokyonight&hide_border=true&background=0d0d0d&ring=3b82f6&fire=a855f7&currStreakLabel=60a5fa`,
                 ].map((src, i) => (
                   <div key={i} className="relative">
