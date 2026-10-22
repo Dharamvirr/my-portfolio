@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
-import { experience } from '../data/resumeData'
+import { experience, personalInfo } from '../data/resumeData'
 import { FiMapPin, FiCalendar } from 'react-icons/fi'
 
 // ─── Safe highlighted text renderer (replaces dangerouslySetInnerHTML) ────────
@@ -144,7 +144,7 @@ const Experience = () => {
           <p className="text-gray-600 text-sm font-mono">
             More on{' '}
             <a
-              href="https://linkedin.com/in/dharamvir-singh-aa908b2a1"
+              href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"

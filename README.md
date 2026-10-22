@@ -101,5 +101,5 @@ vercel
 Built by **Dharamvir Singh** — SDE Intern @DealShare | MNNIT Allahabad | LeetCode Knight (1925) | Codeforces Expert (1600)
 
 - 📧 dharamvir78914@gmail.com
-- 💼 [LinkedIn](https://linkedin.com/in/dharamvir-singh-aa908b2a1)
+- 💼 [LinkedIn](https://www.linkedin.com/in/coderdharamvir/)
 - 🐙 [GitHub](https://github.com/Dharamvirr)

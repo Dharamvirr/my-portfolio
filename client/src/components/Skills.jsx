@@ -178,7 +178,7 @@ const Skills = () => {
           <div className="flex justify-center relative">
             <div className="img-skeleton absolute inset-0 rounded-2xl" id="lc-skeleton" />
             <img
-              src="https://leetcard.jacoblin.cool/dharamvir78914?theme=dark&font=baloo_2&ext=activity&border=0"
+              src={`https://leetcard.jacoblin.cool/${personalInfo.leetcodeUsername || '_iambatman__'}?theme=dark&font=baloo_2&ext=activity&border=0`}
               alt="LeetCode activity stats for Dharamvir Singh"
               className="rounded-2xl max-w-full relative z-10"
               loading="lazy"

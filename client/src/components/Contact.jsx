@@ -87,7 +87,7 @@ const Contact = () => {
     },
     {
       icon: FiLinkedin,
-      label: 'linkedin.com/in/dharamvir-singh-aa908b2a1',
+      label: 'linkedin.com/in/coderdharamvir',
       href: personalInfo.linkedin,
       color: 'text-blue-400',
       bg: 'bg-blue-500/10',
