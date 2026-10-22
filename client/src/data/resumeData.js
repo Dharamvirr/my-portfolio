@@ -18,6 +18,7 @@ export const personalInfo = {
   leetcodeUsername: '_iambatman__',
   codeforcesUsername: 'coderdharamvir',
   linkedinUsername: 'coderdharamvir',
+  website: 'https://dharamvir-singh.vercel.app',
   role: 'Software Development Engineer',
   tagline: 'Building scalable systems, one commit at a time',
   location: 'Prayagraj, India',
@@ -30,7 +31,7 @@ export const education = [
     institution: 'Motilal Nehru National Institute of Technology (MNNIT), Allahabad',
     shortName: 'MNNIT Allahabad',
     degree: 'B.Tech, Electronics and Communication Engineering',
-    score: 'CPI: 8/10',
+    score: 'CPI: 7.69/10',
     duration: 'Nov 2022 – Aug 2026',
     location: 'Prayagraj, India',
     logo: '🎓',
@@ -79,7 +80,7 @@ export const experience = [
         ],
       },
       {
-        text: 'Engineered reusable BigQuery tables, materialized views, and automated data services to replace custom SQL models, improving performance, scalability, and cost efficiency by',
+        text: 'Engineered reusable BigQuery tables, materialized views, and automated data services to replace custom SQL models, improving performance, scalability, platform uptime, and cost efficiency by',
         highlights: [
           { text: '50% ↑', color: 'text-green-400' },
         ],
@@ -89,7 +90,7 @@ export const experience = [
       'Developed a scalable BigQuery monitoring pipeline in Databricks using Python and Pandas, automating telemetry collection and reporting across <b class="text-blue-400">150+ production pipelines</b> and <b class="text-blue-400">80+ Tableau data sources</b>.',
       'Implemented automated anomaly detection, alerting, and service-health monitoring to identify abnormal BigQuery cost spikes, improving operational reliability, incident response, and platform stability.',
       'Optimized large-scale BigQuery SQL workloads through partition pruning, join optimization, and query refactoring — reducing scan costs by <b class="text-green-400">57%</b>, query runtime by <b class="text-green-400">20%</b>, and slot utilization by <b class="text-green-400">19.7%</b>.',
-      'Engineered reusable BigQuery tables, materialized views, and automated data services to replace custom SQL models, improving performance, scalability, and cost efficiency by <b class="text-green-400">50%</b>.',
+      'Engineered reusable BigQuery tables, materialized views, and automated data services to replace custom SQL models, improving performance, scalability, platform uptime, and cost efficiency by <b class="text-green-400">50%</b>.',
     ],
     techStack: ['Python', 'Pandas', 'BigQuery', 'Databricks', 'ETL', 'SQL', 'Tableau', 'Data Pipelines'],
     metrics: [
@@ -279,7 +280,7 @@ export const stats = [
   { label: 'DSA Problems', value: 2000, suffix: '+', color: 'text-green-400', icon: '🧩' },
   { label: 'LeetCode Rating', value: 1925, suffix: '', color: 'text-yellow-400', icon: '⚡' },
   { label: 'Codeforces Rating', value: 1600, suffix: '', color: 'text-blue-400', icon: '🔵' },
-  { label: 'CPI at MNNIT', value: 8.0, suffix: '/10', decimals: 1, color: 'text-purple-400', icon: '🎓' },
+  { label: 'CPI at MNNIT', value: 7.69, suffix: '/10', decimals: 2, color: 'text-purple-400', icon: '🎓' },
 ]
 
 export const navLinks = [

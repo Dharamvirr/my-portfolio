@@ -52,7 +52,7 @@ const About = () => {
                 A passionate{' '}
                 <span className="text-blue-400 font-semibold">B.Tech (ECE)</span> student at{' '}
                 <span className="text-purple-400 font-semibold">MNNIT Allahabad</span>{' '}
-                (CPI: <span className="text-white font-bold">8/10</span>), building scalable
+                (CPI: <span className="text-white font-bold">7.69/10</span>), building scalable
                 backend systems and data engineering solutions.
               </p>
               <p className="text-gray-400 leading-relaxed mb-4">

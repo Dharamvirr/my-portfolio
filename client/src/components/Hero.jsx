@@ -19,7 +19,7 @@ const heroStats = [
   { label: '2000+', sub: 'DSA Problems',       color: 'text-green-400'  },
   { label: '1925',  sub: 'LeetCode Rating',    color: 'text-yellow-400' },
   { label: '1600',  sub: 'Codeforces Rating',  color: 'text-blue-400'   },
-  { label: '8/10',  sub: 'MNNIT CPI',          color: 'text-purple-400' },
+  { label: '7.69',  sub: 'MNNIT CPI',          color: 'text-purple-400' },
 ]
 
 // Stagger each word in the name
