@@ -1,155 +1,153 @@
-import { useRef } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
-import CountUp from 'react-countup'
-import { education, stats, personalInfo } from '../data/resumeData'
-import { FiMapPin, FiCalendar, FiExternalLink } from 'react-icons/fi'
-import SpotlightCard from './SpotlightCard'
-import AnimatedHeading from './AnimatedHeading'
+import { motion, useReducedMotion } from 'framer-motion'
+import { education, personalInfo } from '../data/resumeData'
+import { FiMapPin, FiCalendar, FiBookOpen, FiAward, FiCheckCircle } from 'react-icons/fi'
 
 const About = () => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
   const shouldReduce = useReducedMotion()
 
   return (
-    <section id="about" className="section-container">
-      <motion.div ref={ref}>
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="font-mono text-blue-400 text-sm mb-3 tracking-widest"
-          >
-            // WHO I AM
-          </motion.p>
-          <AnimatedHeading tag="h2" className="section-heading" delay={0.1}>
-            About <span className="gradient-text">Me</span>
-          </AnimatedHeading>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            style={{ originX: 0.5 }}
-            className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mt-4"
-          />
-        </div>
+    <section id="about" aria-labelledby="about-heading" className="section-container border-t border-white/[0.06]">
+      {/* Clean, editorial section header */}
+      <div className="mb-14">
+        <p className="text-xs font-mono font-semibold tracking-wider text-sky-400 uppercase mb-2">
+          Engineering Profile
+        </p>
+        <h2 id="about-heading" className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          Background &amp; Philosophy
+        </h2>
+        <p className="text-sm sm:text-base text-slate-400 mt-2 max-w-2xl">
+          Combining rigorous competitive algorithmic problem-solving with real-world production data engineering.
+        </p>
+      </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left — Bio */}
-          <motion.div
-            initial={{ opacity: 0, x: shouldReduce ? 0 : -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.15 }}
-            className="space-y-5"
-          >
-            <SpotlightCard className="glass-card p-8 card-hover">
-              <h3 className="text-xl font-bold text-white mb-5">
-                Hi, I&apos;m <span className="gradient-text">Dharamvir</span> 👋
-              </h3>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                A passionate{' '}
-                <span className="text-blue-400 font-semibold">B.Tech (ECE)</span> student at{' '}
-                <span className="text-purple-400 font-semibold">MNNIT Allahabad</span>{' '}
-                (CPI: <span className="text-white font-bold">7.69/10</span>), building scalable
-                backend systems and data engineering solutions.
-              </p>
-              <p className="text-gray-400 leading-relaxed mb-4">
-                Recently interned at{' '}
-                <span className="text-blue-400 font-semibold">DealShare</span> where I optimized
-                BigQuery workloads — reducing scan costs by{' '}
-                <span className="text-green-400 font-bold">57%</span> and improving cost efficiency
-                by <span className="text-green-400 font-bold">50%</span> across 150+ production
-                pipelines.
-              </p>
-              <p className="text-gray-400 leading-relaxed">
-                A competitive programmer at heart —{' '}
-                <span className="text-yellow-400 font-semibold">LeetCode Knight</span>{' '}
-                (Rating: <span className="text-white font-bold">1925</span>, Top{' '}
-                <span className="text-yellow-400 font-bold">3.82%</span> globally) and{' '}
-                <span className="text-blue-400 font-semibold">Codeforces Expert</span>{' '}
-                (Rating: <span className="text-white font-bold">1600</span>) with{' '}
-                <span className="text-green-400 font-bold">2000+</span> problems solved.
-              </p>
+      <div className="grid lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Narrative & Quick Stats */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="craft-card p-6 sm:p-8">
+            <h3 className="text-lg font-bold text-white mb-4">
+              Building at the intersection of scale and algorithms.
+            </h3>
 
-              <div className="mt-6 flex flex-wrap gap-3 text-sm text-gray-500">
-                <span className="flex items-center gap-1.5">
-                  <FiMapPin className="text-blue-400" size={13} /> {personalInfo.location}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <FiCalendar className="text-purple-400" size={13} /> Graduating Aug 2026
+            <div className="space-y-4 text-sm sm:text-[15px] text-slate-300 leading-relaxed">
+              <p>
+                I am a final-year engineering student at{' '}
+                <strong className="text-white font-semibold">MNNIT Allahabad</strong> (Electronics &amp; Communication Engineering, CPI: 7.69/10). My engineering passion lies in backend systems, distributed architectures, and large-scale data workload optimization.
+              </p>
+              <p>
+                During my software development internship at{' '}
+                <strong className="text-sky-300 font-semibold">DealShare</strong>, I diagnosed and restructured high-cost BigQuery query workloads across 150+ production pipelines—cutting scan expenditures by{' '}
+                <strong className="text-emerald-400 font-semibold">57%</strong> and query execution time by{' '}
+                <strong className="text-emerald-400 font-semibold">20%</strong>.
+              </p>
+              <p>
+                As a competitive programmer, I hold the rank of{' '}
+                <strong className="text-amber-400 font-semibold">LeetCode Knight (Rating 1925, Top 3.82%)</strong> and{' '}
+                <strong className="text-sky-400 font-semibold">Codeforces Expert (Rating 1600)</strong>, having solved over 2,000 algorithmic challenges. This training instills a deep instinct for space/time complexity in every system I architect.
+              </p>
+            </div>
+
+            {/* Quick Meta Grid */}
+            <div className="mt-8 pt-6 border-t border-white/[0.08] grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs font-mono">
+              <div>
+                <span className="text-slate-400 block mb-1">Location</span>
+                <span className="text-slate-200 flex items-center gap-1.5 font-sans font-medium">
+                  <FiMapPin className="text-sky-400" size={13} /> {personalInfo.location}
                 </span>
               </div>
-            </SpotlightCard>
-
-            {/* Education cards */}
-            <div className="space-y-3">
-              {education.map((edu, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: shouldReduce ? 0 : -30 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.55, delay: 0.3 + i * 0.12 }}
-                >
-                  <SpotlightCard className="glass-card p-5 flex gap-4 items-start card-hover group">
-                    <span className="text-3xl mt-0.5 flex-shrink-0" role="img" aria-label="school">{edu.logo}</span>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-white text-sm leading-snug mb-1 group-hover:text-blue-400 transition-colors">
-                        {edu.shortName}
-                      </h4>
-                      <p className="text-gray-400 text-xs mb-1">{edu.degree}</p>
-                      <div className="flex flex-wrap items-center gap-3">
-                        <span className={`text-xs font-bold bg-gradient-to-r ${edu.color} bg-clip-text text-transparent`}>
-                          {edu.score}
-                        </span>
-                        <span className="text-gray-600 text-xs">{edu.duration}</span>
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </motion.div>
-              ))}
+              <div>
+                <span className="text-slate-400 block mb-1">Graduation</span>
+                <span className="text-slate-200 flex items-center gap-1.5 font-sans font-medium">
+                  <FiCalendar className="text-emerald-400" size={13} /> August 2026
+                </span>
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <span className="text-slate-400 block mb-1">Primary Focus</span>
+                <span className="text-slate-200 font-sans font-medium">
+                  Backend &amp; Data Systems
+                </span>
+              </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right — Stats + GitHub */}
-          <motion.div
-            initial={{ opacity: 0, x: shouldReduce ? 0 : 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-            className="space-y-5"
-          >
-            {/* Stat cards grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.45, delay: 0.35 + i * 0.08, ease: 'backOut' }}
-                >
-                  <SpotlightCard className="glass-card p-5 text-center card-hover group h-full">
-                    <div className="text-2xl mb-2" role="img" aria-label={stat.label}>{stat.icon}</div>
-                    <div className={`text-3xl sm:text-4xl font-black ${stat.color} mb-1 group-hover:scale-110 transition-transform`}>
-                      {isInView ? (
-                        <CountUp
-                          end={stat.value}
-                          duration={2.5}
-                          decimals={stat.decimals || 0}
-                          suffix={stat.suffix}
-                          useEasing
-                        />
-                      ) : '0'}
-                    </div>
-                    <div className="text-gray-500 text-xs font-medium">{stat.label}</div>
-                  </SpotlightCard>
-                </motion.div>
-              ))}
-            </div>
-
-          </motion.div>
+          {/* Core Engineering Disciplines */}
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                title: 'Data-Driven Tuning',
+                desc: 'Profilers and query execution plans before code changes.',
+              },
+              {
+                title: 'Concurrency Safety',
+                desc: 'Race-condition prevention verified with thread benchmarks.',
+              },
+              {
+                title: 'Production Guardrails',
+                desc: 'Proactive health checks, error boundaries, and telemetry.',
+              },
+            ].map((pillar) => (
+              <div key={pillar.title} className="craft-card p-4 border border-white/[0.06]">
+                <div className="flex items-center gap-2 mb-1.5 text-xs font-semibold text-white">
+                  <FiCheckCircle className="text-sky-400" size={13} />
+                  <span>{pillar.title}</span>
+                </div>
+                <p className="text-[12px] text-slate-400 leading-normal">
+                  {pillar.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </motion.div>
+
+        {/* Right Column: Academic Track Record */}
+        <div className="lg:col-span-5 space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">
+            <FiBookOpen className="text-sky-400" />
+            <span>Academic Institutions</span>
+          </div>
+
+          {education.map((edu) => (
+            <div
+              key={edu.institution}
+              className="craft-card p-5 sm:p-6 border border-white/[0.07] hover:border-white/15 transition-all"
+            >
+              <div className="flex items-start justify-between gap-3 mb-2">
+                <div>
+                  <h4 className="text-sm font-bold text-white leading-snug">
+                    {edu.shortName}
+                  </h4>
+                  <p className="text-xs text-sky-400 font-medium mt-0.5">
+                    {edu.degree}
+                  </p>
+                </div>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.05] border border-white/10 text-slate-300 whitespace-nowrap">
+                  {edu.score}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 text-xs text-slate-400 font-mono mb-3">
+                <span>{edu.duration}</span>
+                <span>•</span>
+                <span>{edu.location}</span>
+              </div>
+
+              <p className="text-xs text-slate-400 leading-relaxed">
+                {edu.details}
+              </p>
+            </div>
+          ))}
+
+          {/* Academic Distinction Callout */}
+          <div className="craft-card p-5 border border-amber-500/20 bg-amber-500/[0.03]">
+            <div className="flex items-center gap-2 text-xs font-semibold text-amber-300 mb-1.5">
+              <FiAward size={14} />
+              <span>Rigorous Analytical Foundation</span>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Scored <strong className="text-white">96.80% in Senior Secondary (RBSE)</strong> and selected into Motilal Nehru National Institute of Technology (MNNIT) Allahabad through JEE Mains.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }

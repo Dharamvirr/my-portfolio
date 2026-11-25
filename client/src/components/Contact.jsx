@@ -1,22 +1,23 @@
-import { useRef, useState } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
-import { FiMail, FiPhone, FiLinkedin, FiGithub, FiSend, FiCopy, FiCheck, FiExternalLink } from 'react-icons/fi'
+import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import {
+  FiMail,
+  FiPhone,
+  FiLinkedin,
+  FiGithub,
+  FiSend,
+  FiCopy,
+  FiCheck,
+  FiArrowUpRight,
+  FiMessageSquare,
+} from 'react-icons/fi'
+import { SiCodechef, SiLeetcode, SiCodeforces, SiYoutube } from 'react-icons/si'
 import toast from 'react-hot-toast'
 import { personalInfo } from '../data/resumeData'
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-}
-
-// ─── Web3Forms — Free, no backend needed ──────────────────────────────────
-// Get your free access key at: https://web3forms.com (enter your email)
-// Key is in .env file (VITE_WEB3FORMS_KEY) — never hardcode in source code!
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 
 const Contact = () => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
   const shouldReduce = useReducedMotion()
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [loading, setLoading] = useState(false)
@@ -37,8 +38,8 @@ const Contact = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: `Portfolio Contact — ${form.name}`,
+          access_key: WEB3FORMS_KEY || 'default_key',
+          subject: `Portfolio Contact from ${form.name}`,
           from_name: form.name,
           name: form.name,
           email: form.email,
@@ -47,216 +48,237 @@ const Contact = () => {
       })
 
       const data = await res.json()
-
       if (data.success) {
-        toast.success("Message sent! I'll get back to you within 24 hours 🚀")
+        toast.success("Message dispatched! I'll reply promptly.")
         setForm({ name: '', email: '', message: '' })
       } else {
-        throw new Error(data.message || 'Failed')
+        throw new Error(data.message || 'Submission failed')
       }
     } catch {
-      toast.error('Failed to send. Please email me directly at ' + personalInfo.email)
+      toast.error('Could not send automatically. Please email dharamvir78914@gmail.com directly!')
     } finally {
       setLoading(false)
     }
   }
 
-  const copyEmail = () => {
+  const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email)
     setCopied(true)
-    toast.success('Email copied to clipboard!')
-    setTimeout(() => setCopied(false), 2500)
+    toast.success('Email copied to clipboard')
+    setTimeout(() => setCopied(false), 2200)
   }
 
-  const contactItems = [
-    {
-      icon: FiMail,
-      label: personalInfo.email,
-      href: `mailto:${personalInfo.email}`,
-      color: 'text-red-400',
-      bg: 'bg-red-500/10',
-      border: 'border-red-500/20',
-    },
-    {
-      icon: FiPhone,
-      label: personalInfo.phone,
-      href: `tel:${personalInfo.phone}`,
-      color: 'text-green-400',
-      bg: 'bg-green-500/10',
-      border: 'border-green-500/20',
-    },
-    {
-      icon: FiLinkedin,
-      label: 'linkedin.com/in/coderdharamvir',
-      href: personalInfo.linkedin,
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
-    },
-    {
-      icon: FiGithub,
-      label: 'github.com/Dharamvirr',
-      href: personalInfo.github,
-      color: 'text-white',
-      bg: 'bg-white/5',
-      border: 'border-white/10',
-    },
-  ]
-
   return (
-    <section id="contact" className="section-container section-alt">
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
-        variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
-      >
-        {/* Heading */}
-        <motion.div variants={fadeUp} className="text-center mb-16">
-          <p className="font-mono text-blue-400 text-sm mb-3 tracking-widest">// GET IN TOUCH</p>
-          <h2 className="section-heading">
-            Let&apos;s <span className="gradient-text">Connect</span>
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mt-4 mb-6" />
-          <p className="text-gray-400 max-w-lg mx-auto text-sm leading-relaxed">
-            I&apos;m actively looking for <span className="text-blue-400 font-semibold">SDE opportunities</span>.
-            Whether you have a role, a project, or just want to say hi — I&apos;d love to hear from you!
-          </p>
-        </motion.div>
+    <section id="contact" aria-labelledby="contact-heading" className="section-container border-t border-white/[0.06]">
+      {/* Header */}
+      <div className="mb-14">
+        <p className="text-xs font-mono font-semibold tracking-wider text-sky-400 uppercase mb-2">
+          Start a Conversation
+        </p>
+        <h2 id="contact-heading" className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          Get In Touch
+        </h2>
+        <p className="text-sm sm:text-base text-slate-400 mt-2 max-w-xl">
+          Interested in full-time Software Engineer opportunities, backend architecture discussions, or collaboration.
+        </p>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-          {/* Contact info */}
-          <motion.div variants={fadeUp} className="space-y-3">
-            <h3 className="text-lg font-bold text-white mb-5">Reach Me At</h3>
+      <div className="grid lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Direct Channels & Fast Copy */}
+        <div className="lg:col-span-5 space-y-4">
+          <div className="craft-card p-6 sm:p-7 border border-white/[0.08]">
+            <h3 className="text-base font-bold text-white mb-2">
+              Direct Contact
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-400 mb-6 leading-relaxed">
+              Based in India, open to relocation for high-impact software engineering roles.
+            </p>
 
-            {contactItems.map(({ icon: Icon, label, href, color, bg, border }) => (
-              <motion.a
-                key={label}
-                href={href}
-                target={href.startsWith('http') ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                className={`flex items-center gap-4 p-4 rounded-xl border ${border} ${bg} hover:border-blue-500/30 transition-all group`}
-                whileHover={shouldReduce ? {} : { x: 4 }}
+            <div className="space-y-3">
+              {/* Copy Email Button */}
+              <button
+                onClick={handleCopyEmail}
+                className="w-full flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-left transition-all group cursor-pointer"
               >
-                <div className={`p-2 rounded-lg ${bg} border ${border}`}>
-                  <Icon className={`${color} text-lg`} />
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+                    <FiMail size={15} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-slate-400 block">Email Address</span>
+                    <span className="text-xs font-mono text-slate-200">{personalInfo.email}</span>
+                  </div>
                 </div>
-                <span className="text-gray-300 group-hover:text-white transition-colors text-sm truncate flex-1">
-                  {label}
-                </span>
-                <FiExternalLink className="text-gray-600 group-hover:text-gray-400 flex-shrink-0" size={13} />
-              </motion.a>
-            ))}
+                <div className="text-xs font-mono text-slate-400 group-hover:text-white flex items-center gap-1">
+                  {copied ? (
+                    <span className="text-emerald-400 flex items-center gap-1">
+                      <FiCheck size={12} /> Copied
+                    </span>
+                  ) : (
+                    <>
+                      <FiCopy size={12} /> Copy
+                    </>
+                  )}
+                </div>
+              </button>
 
-            {/* Copy email */}
-            <motion.button
-              onClick={copyEmail}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-white/15 rounded-xl text-gray-500 hover:text-blue-400 hover:border-blue-500/30 transition-all text-sm cursor-pointer"
-            >
-              {copied ? <FiCheck className="text-green-400" /> : <FiCopy />}
-              {copied ? 'Email copied!' : 'Copy email address'}
-            </motion.button>
+              {/* Phone Link */}
+              <a
+                href={`tel:${personalInfo.phone}`}
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-left transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                    <FiPhone size={15} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-slate-400 block">Phone</span>
+                    <span className="text-xs font-mono text-slate-200">{personalInfo.phone}</span>
+                  </div>
+                </div>
+                <FiArrowUpRight className="text-slate-400 group-hover:text-white transition-colors" size={14} />
+              </a>
 
-            {/* Availability */}
-            <div className="glass-card p-5 mt-4">
-              <div className="flex items-center gap-2.5 mb-2">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
-                </span>
-                <span className="text-green-400 font-semibold text-sm">Available for Work</span>
-              </div>
-              <p className="text-gray-500 text-xs leading-relaxed">
-                Open to full-time SDE roles, internships, and freelance projects.
-                Typical response time: <span className="text-white">within 24 hours</span>.
-              </p>
+              {/* LinkedIn Link */}
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-left transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                    <FiLinkedin size={15} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-slate-400 block">LinkedIn</span>
+                    <span className="text-xs font-mono text-slate-200">in/{personalInfo.linkedinUsername}</span>
+                  </div>
+                </div>
+                <FiArrowUpRight className="text-slate-400 group-hover:text-white transition-colors" size={14} />
+              </a>
+
+              {/* GitHub Link */}
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-left transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center text-slate-300">
+                    <FiGithub size={15} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-slate-400 block">GitHub</span>
+                    <span className="text-xs font-mono text-slate-200">@{personalInfo.githubUsername}</span>
+                  </div>
+                </div>
+                <FiArrowUpRight className="text-slate-400 group-hover:text-white transition-colors" size={14} />
+              </a>
+
+              {/* YouTube Link */}
+              <a
+                href={personalInfo.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-left transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400">
+                    <SiYoutube size={15} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-slate-400 block">YouTube (DSA)</span>
+                    <span className="text-xs font-mono text-slate-200">{personalInfo.youtubeHandle}</span>
+                  </div>
+                </div>
+                <FiArrowUpRight className="text-slate-400 group-hover:text-white transition-colors" size={14} />
+              </a>
             </div>
-          </motion.div>
+          </div>
+        </div>
 
-          {/* Contact form — powered by Web3Forms */}
-          <motion.div variants={fadeUp}>
-            <div className="flex items-center justify-between mb-5">
-              <h3 className="text-lg font-bold text-white">Send a Message</h3>
-              <span className="text-[10px] text-gray-600 font-mono">powered by Web3Forms</span>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="contact-name" className="block text-gray-400 text-xs font-medium mb-2 uppercase tracking-wide">
-                    Your Name
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="HR Manager"
-                    required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600
-                               focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.08] transition-all text-sm"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-email" className="block text-gray-400 text-xs font-medium mb-2 uppercase tracking-wide">
-                    Your Email
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="hr@company.com"
-                    required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600
-                               focus:outline-none focus:border-blue-500/50 transition-all text-sm"
-                  />
-                </div>
-              </div>
+        {/* Right Column: Clean, Functional Contact Form */}
+        <div className="lg:col-span-7">
+          <form
+            onSubmit={handleSubmit}
+            className="craft-card p-6 sm:p-8 border border-white/[0.08] space-y-4"
+          >
+            <h3 className="text-base font-bold text-white mb-1">
+              Send a Direct Message
+            </h3>
+            <p className="text-xs text-slate-400 mb-4">
+              Feel free to send a note regarding openings, systems engineering, or technical inquiries.
+            </p>
 
+            <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="contact-message" className="block text-gray-400 text-xs font-medium mb-2 uppercase tracking-wide">
-                  Message
+                <label htmlFor="name" className="block text-xs font-mono text-slate-300 mb-1.5">
+                  Your Name
                 </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  rows={6}
-                  placeholder="I'd love to discuss an opportunity with you..."
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600
-                             focus:outline-none focus:border-blue-500/50 transition-all resize-none text-sm"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Alex Rivera"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-sky-400 focus:bg-white/[0.05] focus:outline-none transition-colors font-sans"
                 />
               </div>
 
-              <motion.button
-                type="submit"
-                disabled={loading}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full btn-primary flex items-center justify-center gap-2 py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {loading ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <FiSend />
-                    Send Message
-                  </>
-                )}
-              </motion.button>
-            </form>
-          </motion.div>
+              <div>
+                <label htmlFor="email" className="block text-xs font-mono text-slate-300 mb-1.5">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="alex@company.com"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-sky-400 focus:bg-white/[0.05] focus:outline-none transition-colors font-sans"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-xs font-mono text-slate-300 mb-1.5">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                required
+                value={form.message}
+                onChange={handleChange}
+                placeholder="Hi Dharamvir, we have an SDE opening on our backend team and would like to connect..."
+                className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-sky-400 focus:bg-white/[0.05] focus:outline-none transition-colors resize-none font-sans"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary w-full sm:w-auto"
+            >
+              {loading ? (
+                <span>Sending...</span>
+              ) : (
+                <>
+                  <FiSend size={14} />
+                  <span>Send Message</span>
+                </>
+              )}
+            </button>
+          </form>
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

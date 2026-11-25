@@ -1,6 +1,7 @@
 // ============================================================
-//  resumeData.js — All resume data for Dharamvir Singh
-//  Source: Dharamvir_Resume.pdf
+//  resumeData.js — Structured Engineering Portfolio Data
+//  Candidate: Dharamvir Singh (SDE · Data Systems · GenAI)
+//  Institute: MNNIT Allahabad (2022 - 2026)
 // ============================================================
 
 export const personalInfo = {
@@ -12,291 +13,336 @@ export const personalInfo = {
   phone: '+91-6350113604',
   linkedin: 'https://www.linkedin.com/in/coderdharamvir/',
   github: 'https://github.com/Dharamvirr',
-  leetcode: 'https://leetcode.com/u/_iambatman__/',
+  leetcode: 'https://leetcode.com/u/coderdharamvir/',
   codeforces: 'https://codeforces.com/profile/coderdharamvir',
+  codechef: 'https://www.codechef.com/users/dharamvir9',
+  youtube: 'https://www.youtube.com/@RealGuideBhai',
   githubUsername: 'Dharamvirr',
-  leetcodeUsername: '_iambatman__',
+  leetcodeUsername: 'coderdharamvir',
   codeforcesUsername: 'coderdharamvir',
+  codechefUsername: 'dharamvir9',
+  youtubeHandle: '@RealGuideBhai',
   linkedinUsername: 'coderdharamvir',
   website: 'https://dharamvir-singh.vercel.app',
   role: 'Software Development Engineer',
-  tagline: 'Building scalable systems, one commit at a time',
+  specialization: 'Backend Systems, Data Engineering & Agentic AI',
+  tagline: 'Building resilient backend systems, high-throughput data pipelines, and reliable AI agents.',
+  summary:
+    'Ex-SDE Intern at DealShare (cut BigQuery scan costs by 57% & runtime by 20%). LeetCode Knight (1925) and Codeforces Expert (1600) with 2,000+ algorithmic solves. Building production GenAI systems with LangChain, LangGraph, RAG, Agent Memory, and Human-in-the-Loop workflows.',
   location: 'Prayagraj, India',
   openToWork: true,
-  availableFor: ['Full-time SDE Roles', 'Internships', 'Freelance Projects'],
+  status: 'Open to Full-time SDE Roles (2026 Batch) · MNNIT Allahabad',
 }
+
+export const heroMetrics = [
+  {
+    value: '1925',
+    label: 'LeetCode Knight',
+    detail: 'Top 3.82% Globally',
+    accent: 'text-amber-400',
+    border: 'hover:border-amber-500/40',
+  },
+  {
+    value: '1600',
+    label: 'Codeforces Expert',
+    detail: 'Blue-Rated Competitor',
+    accent: 'text-sky-400',
+    border: 'hover:border-sky-500/40',
+  },
+  {
+    value: '2000+',
+    label: 'Algorithmic Solves',
+    detail: '100+ Live Rated Contests',
+    accent: 'text-emerald-400',
+    border: 'hover:border-emerald-500/40',
+  },
+  {
+    value: '-57%',
+    label: 'BigQuery Scan Cost',
+    detail: 'Production Impact @ DealShare',
+    accent: 'text-indigo-400',
+    border: 'hover:border-indigo-500/40',
+  },
+]
 
 export const education = [
   {
-    institution: 'Motilal Nehru National Institute of Technology (MNNIT), Allahabad',
+    institution: 'Motilal Nehru National Institute of Technology (MNNIT) Allahabad',
     shortName: 'MNNIT Allahabad',
-    degree: 'B.Tech, Electronics and Communication Engineering',
-    score: 'CPI: 7.69/10',
+    degree: 'B.Tech in Electronics and Communication Engineering',
+    score: 'CPI: 7.69 / 10',
     duration: 'Nov 2022 – Aug 2026',
-    location: 'Prayagraj, India',
-    logo: '🎓',
-    color: 'from-blue-500 to-purple-500',
+    location: 'Prayagraj, Uttar Pradesh',
+    details: 'Core coursework in Data Structures, Algorithms, Operating Systems, Computer Networks, DBMS, and Distributed Computing.',
+    badge: 'Institute of National Importance',
   },
   {
-    institution: "Archana Children's Academy, Jaipur",
+    institution: "Archana Children's Academy",
     shortName: "Archana Children's Academy",
-    degree: 'Higher Secondary — RBSE',
-    score: '96.80% (XII) · 94.14% (X)',
+    degree: 'Higher Secondary Education (RBSE XII & X)',
+    score: '96.80% (Class XII) · 94.14% (Class X)',
     duration: '2018 – 2021',
-    location: 'Jaipur, India',
-    logo: '🏫',
-    color: 'from-green-500 to-teal-500',
+    location: 'Jaipur, Rajasthan',
+    details: 'Science & Mathematics stream with top state-level merit distinction.',
+    badge: 'Academic Distinction',
   },
 ]
 
 export const experience = [
   {
     company: 'DealShare (Merabo Labs Private Limited)',
-    role: 'Software Development Engineer Intern',
-    department: 'Data Engineering',
-    duration: 'Jan 2026 – June 2026',
+    shortCompany: 'DealShare',
+    role: 'Software Engineer Intern',
+    team: 'Data Engineering',
+    duration: 'Jan 2026 – Jul 2026',
     location: 'Bengaluru, India',
-    type: 'Internship',
-    color: 'from-blue-500 to-cyan-400',
-    logo: '🏢',
-    bullets: [
-      {
-        text: 'Developed a scalable BigQuery monitoring pipeline in Databricks using Python and Pandas, automating telemetry collection and reporting across',
-        highlights: [
-          { text: '150+ production pipelines', color: 'text-blue-400' },
-          { text: '80+ Tableau data sources', color: 'text-blue-400' },
-        ],
-      },
-      {
-        text: 'Implemented automated anomaly detection, alerting, and service-health monitoring to identify abnormal BigQuery cost spikes, improving operational reliability, incident response, and platform stability.',
-        highlights: [],
-      },
-      {
-        text: 'Optimized large-scale BigQuery SQL workloads through partition pruning, join optimization, and query refactoring — reducing scan costs by',
-        highlights: [
-          { text: '57% ↓', color: 'text-green-400' },
-          { text: 'query runtime by 20% ↓', color: 'text-green-400' },
-          { text: 'slot utilization by 19.7% ↓', color: 'text-green-400' },
-        ],
-      },
-      {
-        text: 'Engineered reusable BigQuery tables, materialized views, and automated data services to replace custom SQL models, improving performance, scalability, platform uptime, and cost efficiency by',
-        highlights: [
-          { text: '50% ↑', color: 'text-green-400' },
-        ],
-      },
-    ],
-    rawBullets: [
-      'Developed a scalable BigQuery monitoring pipeline in Databricks using Python and Pandas, automating telemetry collection and reporting across <b class="text-blue-400">150+ production pipelines</b> and <b class="text-blue-400">80+ Tableau data sources</b>.',
-      'Implemented automated anomaly detection, alerting, and service-health monitoring to identify abnormal BigQuery cost spikes, improving operational reliability, incident response, and platform stability.',
-      'Optimized large-scale BigQuery SQL workloads through partition pruning, join optimization, and query refactoring — reducing scan costs by <b class="text-green-400">57%</b>, query runtime by <b class="text-green-400">20%</b>, and slot utilization by <b class="text-green-400">19.7%</b>.',
-      'Engineered reusable BigQuery tables, materialized views, and automated data services to replace custom SQL models, improving performance, scalability, platform uptime, and cost efficiency by <b class="text-green-400">50%</b>.',
-    ],
-    techStack: ['Python', 'Pandas', 'BigQuery', 'Databricks', 'ETL', 'SQL', 'Tableau', 'Data Pipelines'],
+    type: 'Engineering Internship',
+    summary:
+      'Engineered BigQuery telemetry pipelines in Databricks and implemented automated auto-cancellation via GCP Cloud Functions to prevent slot contention, while refactoring large-scale production SQL workloads.',
     metrics: [
-      { label: 'Scan Cost Reduction', value: '57%', icon: '📉' },
-      { label: 'Runtime Improvement', value: '20%', icon: '⚡' },
-      { label: 'Cost Efficiency', value: '50%', icon: '💰' },
-      { label: 'Pipelines Monitored', value: '150+', icon: '🔧' },
+      { label: 'Scan Cost Reduction', value: '57% ↓', note: 'Partition pruning & join refactoring' },
+      { label: 'Query Runtime', value: '20% ↓', note: 'Execution plan optimization' },
+      { label: 'Slot Utilization', value: '19.7% ↓', note: 'Cluster compute efficiency' },
+      { label: 'Pipelines Monitored', value: '150+', note: 'Databricks & INFORMATION_SCHEMA' },
     ],
+    achievements: [
+      {
+        title: 'BigQuery Monitoring Pipeline in Databricks',
+        description:
+          'Developed a BigQuery monitoring pipeline in Databricks (Python) to extract telemetry and byte-scan metadata from INFORMATION_SCHEMA across 150+ pipelines and 80+ Tableau sources.',
+      },
+      {
+        title: 'Automated Slack Alerting & Cloud Functions Auto-Cancel',
+        description:
+          'Implemented automated Slack alerting and GCP Cloud Functions (Python) to auto-cancel runaway BigQuery jobs exceeding 12 min & 3+ slot-hours or 15 min runtime, preventing slot contention.',
+      },
+      {
+        title: 'Large-Scale BigQuery SQL Optimization',
+        description:
+          'Optimized large-scale BigQuery SQL workloads via partition pruning, clustering, and join refactoring, reducing scan costs by 57%, query runtime by 20%, and slot utilization by 19.7%.',
+      },
+      {
+        title: 'Incremental Upserts & Materialized Views Migration',
+        description:
+          'Migrated backend-to-BigQuery ingestion from daily full-table reloads to incremental upserts and reusable materialized views, cutting redundant data scans and speeding up downstream reporting.',
+      },
+    ],
+    techStack: ['BigQuery', 'Databricks', 'Python', 'GCP Cloud Functions', 'SQL', 'ETL/ELT', 'Data Pipelines', 'Pandas', 'Tableau'],
   },
 ]
 
 export const projects = [
   {
-    id: 1,
+    id: 'food-delivery',
     title: 'Food Delivery Platform',
-    subtitle: 'Full-Stack MERN Application',
-    description:
-      'A scalable Full-Stack Food Delivery Platform using the MERN Stack with 20+ modular RESTful APIs, optimized MongoDB indexing, order tracking, and inventory management. Integrated Stripe Payment Gateway and real-time chat via Socket.io.',
-    techStack: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'Socket.io', 'Stripe', 'JWT', 'Redis', 'RBAC'],
-    github: 'https://github.com/Dharamvirr',
-    demo: 'https://food-delivery-web-app-tau.vercel.app/',
-    date: 'May 2025',
-    highlights: ['20+ RESTful APIs', 'Stripe Payment Gateway', 'Real-time chat (Socket.io)', 'JWT + RBAC Auth', 'bcrypt + CORS Security'],
-    category: 'Full Stack',
-    color: 'from-purple-500 to-pink-500',
-    border: 'border-purple-500/20',
+    subtitle: 'Full-Stack Food Delivery with GenAI Concierge & RAG Search',
+    category: 'Full Stack & AI',
     featured: true,
-    icon: '🍕',
+    hasSimulator: false,
+    description:
+      'Engineered an enterprise-grade food delivery application featuring 20+ RESTful APIs, JWT/RBAC security, Stripe checkout, Socket.io live tracking, coupled with a RAG vector search and an autonomous LangGraph Culinary Concierge.',
+    highlights: [
+      'Engineered core backend using Node.js, Express.js, and MongoDB with 20+ RESTful APIs, JWT/RBAC auth, Stripe payments, and Socket.io real-time order tracking',
+      'Implemented RAG retrieval pipeline using Qdrant Vector DB (3072-dim embeddings) for semantic dish search, dietary filtering, and grounded menu recommendations',
+      'Architected autonomous GenAI Culinary Concierge with LangGraph, combining dynamic tool-calling and Human-in-the-Loop (HITL) interrupts for safe cart checkout and meal guidance',
+      'Built React.js frontend and optimized asset delivery via Rollup code-splitting, achieving >65% bundle reduction for faster initial page loads',
+    ],
+    techStack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'LangGraph', 'Qdrant', 'REST APIs', 'Socket.io', 'JWT', 'Stripe'],
+    liveDemo: 'https://food-delivery-web-app-tau.vercel.app/',
+    github: 'https://github.com/Dharamvirr',
+    date: 'May 2025',
   },
   {
-    id: 2,
+    id: 'url-shortener',
     title: 'URL Shortener Service',
-    subtitle: 'Microservice with Redis & Docker',
+    subtitle: 'Containerized High-Traffic Redirection & Rate-Limited API',
+    category: 'Backend & Systems',
+    featured: true,
+    hasSimulator: false,
     description:
-      'A URL shortening service using Node.js, Express.js, and MongoDB with custom URL support, fast redirection, and detailed click analytics. Implemented Redis for caching and rate limiting; containerized with Docker.',
+      'High-performance URL shortening service supporting custom short URLs, fast redirection, and detailed click analytics with Redis caching and Docker containerization.',
+    highlights: [
+      'Developed URL shortening service using Node.js, Express.js, and MongoDB, supporting custom short URLs, fast redirection, and detailed click analytics',
+      'Implemented Redis for low-latency lookup caching and API rate limiting to protect endpoints under high traffic and minimize repetitive database reads',
+      'Containerized backend service using Docker to ensure reproducible environments, consistent configuration, and reliable deployment',
+    ],
     techStack: ['Node.js', 'Express.js', 'MongoDB', 'Redis', 'Docker', 'REST APIs'],
+    liveDemo: null,
     github: 'https://github.com/Dharamvirr',
-    demo: null,
     date: 'June 2026',
-    highlights: ['Redis caching & rate limiting', 'Docker containerized', 'Click analytics', 'Custom URL support'],
-    category: 'Backend',
-    color: 'from-green-500 to-teal-400',
-    border: 'border-green-500/20',
-    featured: false,
-    icon: '🔗',
-  },
-  {
-    id: 3,
-    title: 'Thread-Safe API Rate Limiter',
-    subtitle: 'Concurrent Java System',
-    description:
-      'A highly concurrent rate limiter using the Fixed Window Counter algorithm and object-level locking via Java\'s synchronized mechanism. Validated strict thread safety by simulating 100+ simultaneous threads using ExecutorService and CountDownLatch.',
-    techStack: ['Java', 'Multithreading', 'Concurrency', 'ExecutorService', 'CountDownLatch', 'Synchronized'],
-    github: 'https://github.com/Dharamvirr',
-    demo: null,
-    date: 'July 2026',
-    highlights: ['100+ simultaneous threads', 'Zero race conditions', 'Fixed Window Counter', 'Object-level locking'],
-    category: 'Backend',
-    color: 'from-yellow-500 to-orange-400',
-    border: 'border-yellow-500/20',
-    featured: false,
-    icon: '⚡',
-  },
-  {
-    id: 4,
-    title: 'Automated HR Outreach Pipeline',
-    subtitle: 'Python Automation & Web Scraping',
-    description:
-      'A web scraping pipeline using Python and Selenium to systematically extract HR contact information from Instahyre. Developed an automated email outreach system leveraging Mailmeteor to dispatch personalized, targeted campaigns at scale.',
-    techStack: ['Python', 'Selenium', 'Mailmeteor', 'Web Scraping', 'Automation', 'CSV'],
-    github: 'https://github.com/Dharamvirr',
-    demo: null,
-    date: 'Aug 2026',
-    highlights: ['Automated lead generation', 'Personalized campaigns at scale', 'Eliminated manual effort', 'Instahyre scraping'],
-    category: 'Automation',
-    color: 'from-orange-500 to-red-400',
-    border: 'border-orange-500/20',
-    featured: false,
-    icon: '🤖',
   },
 ]
 
-export const skills = {
-  'Programming Languages': {
-    icon: '💻',
-    color: 'from-blue-400 to-blue-600',
-    borderColor: 'border-blue-500/30',
-    bgColor: 'bg-blue-500/10',
-    textColor: 'text-blue-400',
-    items: ['C++', 'Python', 'Java', 'JavaScript'],
+export const aiPipelineStages = [
+  {
+    id: 'ingest',
+    step: '01',
+    title: 'Context & RAG Retrieval',
+    tag: 'LangChain · RAG',
+    summary: 'Semantic chunking, dense vector embeddings, and LangChain hybrid retrievers (BM25 + vector reranking) to ground LLM responses in verified data without hallucinations.',
+    specs: ['LangChain Retrievers', 'Vector Indexing', 'Hybrid Search & Rerank'],
   },
-  'Data Engineering': {
-    icon: '📊',
-    color: 'from-cyan-400 to-cyan-600',
-    borderColor: 'border-cyan-500/30',
-    bgColor: 'bg-cyan-500/10',
-    textColor: 'text-cyan-400',
-    items: ['BigQuery', 'Databricks', 'ETL/ELT', 'Data Pipelines', 'Web Scraping', 'MySQL', 'Automation', 'Pandas'],
+  {
+    id: 'memory',
+    step: '02',
+    title: 'Short & Long-Term Memory',
+    tag: 'LangGraph Checkpointers',
+    summary: 'Dual-layer memory architecture using LangGraph thread-level checkpointers for short-term context combined with persistent cross-session episodic vector stores.',
+    specs: ['LangGraph Checkpointer', 'Thread State Buffer', 'Long-Term Vector Store'],
   },
-  'Backend Development': {
-    icon: '⚙️',
-    color: 'from-green-400 to-green-600',
-    borderColor: 'border-green-500/30',
-    bgColor: 'bg-green-500/10',
-    textColor: 'text-green-400',
-    items: ['Node.js', 'Express.js', 'REST APIs', 'Microservices', 'Multithreading', 'Concurrency', 'Selenium', 'Socket.io'],
+  {
+    id: 'agent',
+    step: '03',
+    title: 'Cyclic Agent Orchestration',
+    tag: 'LangGraph · AI Agents',
+    summary: 'Stateful cyclic workflows in LangGraph with conditional edges, structured tool-calling via LangChain, and deterministic error-recovery loops.',
+    specs: ['LangGraph StateGraph', 'Conditional Edges', 'Structured Tool Calling'],
   },
-  'DevOps & Tools': {
-    icon: '🛠️',
-    color: 'from-orange-400 to-orange-600',
-    borderColor: 'border-orange-500/30',
-    bgColor: 'bg-orange-500/10',
-    textColor: 'text-orange-400',
-    items: ['Git', 'GitHub', 'Docker', 'CI/CD', 'Redis', 'Mailmeteor', 'Debugging', 'Testing'],
+  {
+    id: 'hitl',
+    step: '04',
+    title: 'Human-in-the-Loop (HITL)',
+    tag: 'Safety Interrupts',
+    summary: 'Explicit LangGraph interrupt() breakpoints before high-stakes actions—pausing graph execution for human approval, state inspection, and safe resume.',
+    specs: ['LangGraph interrupt()', 'Approval Checkpoints', 'Audit Trail Logging'],
   },
-  'Core CS': {
-    icon: '🧠',
-    color: 'from-purple-400 to-purple-600',
-    borderColor: 'border-purple-500/30',
-    bgColor: 'bg-purple-500/10',
-    textColor: 'text-purple-400',
-    items: ['OOP', 'Operating Systems', 'DBMS', 'Computer Networks', 'Distributed Systems', 'System Design'],
+]
+
+export const skillCategories = [
+  {
+    id: 'languages',
+    title: 'Programming Languages',
+    description: 'Core languages for competitive programming and production services',
+    skills: [
+      { name: 'C++', level: 'Advanced', note: 'DSA & Competitive Programming' },
+      { name: 'JavaScript', level: 'Proficient', note: 'Full-Stack & Node.js Services' },
+      { name: 'SQL', level: 'Production', note: 'Relational Modeling & Query Tuning' },
+      { name: 'Python', level: 'Advanced', note: 'Data Pipelines, GenAI & Automation' },
+      { name: 'Java', level: 'Proficient', note: 'OOP & Multithreading' },
+    ],
   },
-}
+  {
+    id: 'backend-frontend-ai',
+    title: 'Backend, Frontend & AI',
+    description: 'Modern full-stack architectures, vector search, and agentic workflows',
+    skills: [
+      { name: 'Node.js & Express.js', level: 'Production', note: 'RESTful APIs, JWT, RBAC' },
+      { name: 'React.js', level: 'Production', note: 'Frontend UI, Rollup Splitting' },
+      { name: 'Socket.io', level: 'Production', note: 'Real-time Bidirectional Events' },
+      { name: 'LangChain & LangGraph', level: 'Applied', note: 'Stateful Graphs, Cyclic Agents & HITL' },
+      { name: 'RAG & Vector DB', level: 'Applied', note: 'Qdrant (3072-dim), Embeddings & Search' },
+    ],
+  },
+  {
+    id: 'databases-caching',
+    title: 'Databases & Caching',
+    description: 'Relational, document, key-value, and vector storage engines',
+    skills: [
+      { name: 'PostgreSQL & MySQL', level: 'Proficient', note: 'Relational DBs, Schemas & Indexes' },
+      { name: 'MongoDB', level: 'Production', note: 'NoSQL Schemas & Compound Indexing' },
+      { name: 'Redis', level: 'Production', note: 'Low-latency Caching & Rate Limiting' },
+      { name: 'Qdrant (Vector DB)', level: 'Applied', note: 'High-dim Embeddings & Semantic Search' },
+    ],
+  },
+  {
+    id: 'data-cloud',
+    title: 'Data Engineering & Cloud',
+    description: 'Warehouse query optimization, cloud functions, and telemetry pipelines',
+    skills: [
+      { name: 'Google BigQuery', level: 'Production', note: 'Partition Pruning, Clustering & Views' },
+      { name: 'Databricks', level: 'Production', note: '150+ Pipeline Telemetry (Python)' },
+      { name: 'GCP Cloud Functions', level: 'Production', note: 'Auto-cancel Runaway Jobs' },
+      { name: 'ETL/ELT & Data Pipelines', level: 'Production', note: 'Incremental Upserts & Data Scans' },
+      { name: 'Pandas', level: 'Production', note: 'Data Wrangling & Pipeline Analytics' },
+    ],
+  },
+  {
+    id: 'devops-tools',
+    title: 'DevOps & Tools',
+    description: 'Containerization, version control, build tools, and API testing',
+    skills: [
+      { name: 'Docker', level: 'Production', note: 'Containerization & Reproducible Environments' },
+      { name: 'Git & GitHub', level: 'Proficient', note: 'Version Control & Workflows' },
+      { name: 'Postman', level: 'Proficient', note: 'API Testing & Documentation' },
+      { name: 'Vite', level: 'Proficient', note: 'Frontend Tooling & Bundling' },
+    ],
+  },
+  {
+    id: 'core-cs',
+    title: 'Core Computer Science',
+    description: 'Fundamental engineering principles and systems knowledge',
+    skills: [
+      { name: 'Object-Oriented Programming', level: 'Core', note: 'Design Principles & Patterns' },
+      { name: 'Operating Systems', level: 'Core', note: 'Threads, Process Scheduling, Memory' },
+      { name: 'Database Management Systems', level: 'Core', note: 'ACID, Indexing, Transactions' },
+      { name: 'Computer Networks', level: 'Core', note: 'TCP/IP, HTTP, WebSockets' },
+      { name: 'System Design', level: 'Core', note: 'Scalability, Caching, Concurrency' },
+    ],
+  },
+]
 
 export const achievements = [
   {
-    icon: '⚡',
+    id: 'problems-solved',
+    title: '2,000+ Algorithmic Solves',
+    score: '2000+',
+    rank: '100+ Rated Contests',
+    platform: 'Contests & Platforms',
+    link: 'https://leetcode.com/u/coderdharamvir/',
+    description: 'Solved 2000+ Data Structures and Algorithms problems across 100+ rated contests. Achieved Codeforces Expert (max rating 1600) and LeetCode Knight (max rating 1925, Top 3.82% globally).',
+  },
+  {
+    id: 'leetcode',
     title: 'LeetCode Knight',
-    metric: '1925',
-    label: 'Max Rating',
-    sub: 'Top 3.82% Globally',
-    color: 'from-yellow-400 to-orange-500',
-    border: 'border-yellow-500/30',
-    glow: 'shadow-yellow-500/10',
-    link: 'https://leetcode.com/u/_iambatman__/',
+    score: '1925',
+    rank: 'Top 3.82% Worldwide',
     platform: 'LeetCode',
+    link: 'https://leetcode.com/u/coderdharamvir/',
+    description: 'Consistently ranked in the top 3.82% globally with a max rating of 1925 across weekly and biweekly algorithmic contests.',
   },
   {
-    icon: '🔵',
+    id: 'codeforces',
     title: 'Codeforces Expert',
-    metric: '1600',
-    label: 'Max Rating',
-    sub: 'Blue Rated Badge',
-    color: 'from-blue-400 to-blue-600',
-    border: 'border-blue-500/30',
-    glow: 'shadow-blue-500/10',
-    link: 'https://codeforces.com/profile/coderdharamvir',
+    score: '1600',
+    rank: 'Blue-Rated Specialist',
     platform: 'Codeforces',
+    link: 'https://codeforces.com/profile/coderdharamvir',
+    description: 'Earned the official Expert title (max rating 1600) by solving complex algorithmic, dynamic programming, and graph problems.',
   },
   {
-    icon: '🧩',
-    title: 'DSA Problems',
-    metric: '2000+',
-    label: 'Problems Solved',
-    sub: '100+ Rated Contests',
-    color: 'from-green-400 to-emerald-500',
-    border: 'border-green-500/30',
-    glow: 'shadow-green-500/10',
-    platform: 'Multiple',
+    id: 'youtube-educator',
+    title: 'DSA Educator (YouTube)',
+    score: 'Creator',
+    rank: '@RealGuideBhai',
+    platform: 'YouTube',
+    link: 'https://www.youtube.com/@RealGuideBhai',
+    description: 'Create and publish video tutorials explaining algorithmic approaches and contest solutions for problems across LeetCode, CodeChef, and Codeforces.',
   },
   {
-    icon: '🏆',
+    id: 'softathlon',
     title: 'Softathlon @ MNNIT',
-    metric: 'Rank 4',
-    label: 'Competition Rank',
-    sub: '1000+ Participants',
-    color: 'from-purple-400 to-pink-500',
-    border: 'border-purple-500/30',
-    glow: 'shadow-purple-500/10',
+    score: 'Rank 4',
+    rank: '1,000+ Competitors',
     platform: 'MNNIT Allahabad',
+    link: null,
+    description: 'Secured Rank 4 out of 1,000+ participants in the Softathlon competition at MNNIT Allahabad, demonstrating software engineering proficiency.',
   },
   {
-    icon: '🎯',
-    title: 'Math Rush',
-    metric: 'Finalist',
-    label: 'Competition',
-    sub: 'Advanced Analytical Skills',
-    color: 'from-red-400 to-rose-500',
-    border: 'border-red-500/30',
-    glow: 'shadow-red-500/10',
-    platform: 'National',
+    id: 'math-rush',
+    title: 'Math Rush Contest',
+    score: 'Finalist',
+    rank: 'Finalist Position',
+    platform: 'MNNIT Allahabad',
+    link: null,
+    description: 'Achieved a Finalist position in the Math Rush competition, recognized for advanced mathematical and analytical problem-solving.',
   },
-]
-
-export const stats = [
-  { label: 'DSA Problems', value: 2000, suffix: '+', color: 'text-green-400', icon: '🧩' },
-  { label: 'LeetCode Rating', value: 1925, suffix: '', color: 'text-yellow-400', icon: '⚡' },
-  { label: 'Codeforces Rating', value: 1600, suffix: '', color: 'text-blue-400', icon: '🔵' },
-  { label: 'CPI at MNNIT', value: 7.69, suffix: '/10', decimals: 2, color: 'text-purple-400', icon: '🎓' },
 ]
 
 export const navLinks = [
   { label: 'About', to: 'about' },
   { label: 'Experience', to: 'experience' },
   { label: 'Projects', to: 'projects' },
-  { label: 'Skills', to: 'skills' },
+  { label: 'AI & Skills', to: 'skills' },
   { label: 'Achievements', to: 'achievements' },
   { label: 'Contact', to: 'contact' },
-]
-
-// ─── "Currently Exploring" — signals growth mindset to HRs ───────────────
-export const currentlyLearning = [
-  { label: 'System Design', icon: '🏗️', color: 'text-blue-400', border: 'border-blue-500/25', bg: 'bg-blue-500/8' },
-  { label: 'Kubernetes', icon: '☸️', color: 'text-cyan-400', border: 'border-cyan-500/25', bg: 'bg-cyan-500/8' },
-  { label: 'Apache Kafka', icon: '⚡', color: 'text-orange-400', border: 'border-orange-500/25', bg: 'bg-orange-500/8' },
-  { label: 'AWS Cloud', icon: '☁️', color: 'text-yellow-400', border: 'border-yellow-500/25', bg: 'bg-yellow-500/8' },
-  { label: 'Go (Golang)', icon: '🔵', color: 'text-teal-400', border: 'border-teal-500/25', bg: 'bg-teal-500/8' },
 ]

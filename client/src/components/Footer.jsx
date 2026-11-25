@@ -1,91 +1,121 @@
-import { motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi'
 import { Link } from 'react-scroll'
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
+import { SiLeetcode, SiCodeforces, SiCodechef, SiYoutube } from 'react-icons/si'
 import { personalInfo, navLinks } from '../data/resumeData'
 
 const Footer = () => {
-  const year = new Date().getFullYear()
+  const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-white/5 bg-[#050505]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
-          {/* Logo & tagline */}
-          <div className="text-center md:text-left">
-            <Link to="hero" smooth duration={600} className="cursor-pointer inline-block">
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                className="text-3xl font-black gradient-text inline-block"
-              >
-                &lt;DS/&gt;
-              </motion.span>
-            </Link>
-            <p className="text-gray-600 text-xs mt-1 font-mono">{personalInfo.tagline}</p>
+    <footer className="border-t border-white/[0.08] bg-[#06070A] py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-10 border-b border-white/[0.06]">
+          {/* Brand */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center font-mono text-xs font-bold text-white">
+              DS
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">
+                {personalInfo.name}
+              </p>
+              <p className="text-xs text-slate-400 font-mono">
+                {personalInfo.role} · MNNIT Allahabad
+              </p>
+            </div>
           </div>
 
-          {/* Nav links */}
-          <div className="flex flex-wrap justify-center gap-5 text-sm text-gray-500">
+          {/* Quick Nav Links */}
+          <nav aria-label="Footer Navigation" className="flex flex-wrap items-center gap-5 text-xs text-slate-400">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 smooth
-                duration={600}
-                offset={-80}
-                className="hover:text-blue-400 capitalize cursor-pointer transition-colors duration-200"
+                duration={500}
+                offset={-70}
+                className="hover:text-white transition-colors cursor-pointer"
               >
                 {link.label}
               </Link>
             ))}
-          </div>
+          </nav>
 
-          {/* Social links */}
-          <div className="flex items-center gap-5">
-            <motion.a
+          {/* Social Icons */}
+          <div className="flex items-center gap-3 text-slate-400">
+            <a
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.2, y: -2 }}
-              className="text-gray-500 hover:text-white transition-colors"
-              title="GitHub"
+              aria-label="GitHub Profile"
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition-colors"
             >
-              <FiGithub size={18} />
-            </motion.a>
-            <motion.a
+              <FiGithub size={16} />
+            </a>
+            <a
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.2, y: -2 }}
-              className="text-gray-500 hover:text-blue-400 transition-colors"
-              title="LinkedIn"
+              aria-label="LinkedIn Profile"
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition-colors"
             >
-              <FiLinkedin size={18} />
-            </motion.a>
-            <motion.a
+              <FiLinkedin size={16} />
+            </a>
+            <a
+              href={personalInfo.leetcode}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LeetCode Profile"
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition-colors"
+            >
+              <SiLeetcode size={16} />
+            </a>
+            <a
+              href={personalInfo.codeforces}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Codeforces Profile"
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition-colors"
+            >
+              <SiCodeforces size={16} />
+            </a>
+            <a
+              href={personalInfo.codechef}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="CodeChef Profile"
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition-colors"
+            >
+              <SiCodechef size={16} />
+            </a>
+            <a
+              href={personalInfo.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube Channel"
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition-colors"
+            >
+              <SiYoutube size={16} />
+            </a>
+            <a
               href={`mailto:${personalInfo.email}`}
-              whileHover={{ scale: 1.2, y: -2 }}
-              className="text-gray-500 hover:text-red-400 transition-colors"
-              title="Email"
+              aria-label="Email Dharamvir"
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition-colors"
             >
-              <FiMail size={18} />
-            </motion.a>
+              <FiMail size={16} />
+            </a>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8" />
-
         {/* Bottom row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-gray-600 text-xs">
-          <p className="flex items-center gap-1.5">
-            Built with{' '}
-            <FiHeart className="text-red-500" size={11} />{' '}
-            by <span className="text-gray-400 font-medium ml-0.5">Dharamvir Singh</span>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[12px] font-mono text-slate-400">
+          <p>
+            &copy; {currentYear} Dharamvir Singh. Designed with craft &amp; conviction.
           </p>
-          <p className="font-mono">
-            React · Tailwind · Framer Motion · Node.js · MongoDB
-          </p>
-          <p>&copy; {year} All rights reserved.</p>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="text-slate-400">All systems operational</span>
+          </div>
         </div>
       </div>
     </footer>

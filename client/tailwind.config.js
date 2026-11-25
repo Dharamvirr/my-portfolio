@@ -7,38 +7,35 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['Fira Code', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'Fira Code', 'monospace'],
       },
       colors: {
-        primary: '#3b82f6',
-        secondary: '#a855f7',
-        dark: '#0a0a0a',
-        darker: '#050505',
-      },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'shimmer': 'shimmer 2s infinite',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+        background: '#08090C',
+        surface: {
+          DEFAULT: '#0F1118',
+          subtle: '#141824',
+          card: 'rgba(17, 20, 31, 0.75)',
+          hover: '#191E2E',
         },
-        glow: {
-          from: { textShadow: '0 0 10px #3b82f6, 0 0 20px #3b82f6' },
-          to: { textShadow: '0 0 20px #a855f7, 0 0 30px #a855f7, 0 0 40px #a855f7' },
+        border: {
+          subtle: 'rgba(255, 255, 255, 0.07)',
+          strong: 'rgba(255, 255, 255, 0.15)',
+          accent: 'rgba(56, 189, 248, 0.3)',
         },
-        shimmer: {
-          '0%': { backgroundPosition: '-200% center' },
-          '100%': { backgroundPosition: '200% center' },
+        brand: {
+          blue: '#2563EB',
+          sky: '#38BDF8',
+          cyan: '#06B6D4',
+          emerald: '#10B981',
+          amber: '#F59E0B',
         },
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-      }
+        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
+        'dot-matrix': "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+      },
     },
   },
   plugins: [],

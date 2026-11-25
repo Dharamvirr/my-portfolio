@@ -7,7 +7,7 @@ const BackToTop = () => {
 
   useEffect(() => {
     const handleScroll = () => setVisible(window.scrollY > 400)
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -20,19 +20,15 @@ const BackToTop = () => {
       {visible && (
         <motion.button
           key="back-to-top"
-          initial={{ opacity: 0, scale: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0, y: 20 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          title="Back to top"
-          className="fixed bottom-8 right-8 z-40 p-3.5 bg-gradient-to-r from-blue-500 to-purple-600
-                     rounded-full shadow-lg shadow-blue-500/25 hover:shadow-blue-500/50
-                     transition-shadow duration-300 cursor-pointer group"
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.9 }}
+          aria-label="Back to top of page"
+          className="fixed bottom-6 right-6 z-40 p-3 rounded-xl bg-[#0F121A]/90 hover:bg-[#1A1F2C] border border-white/10 hover:border-sky-500/40 text-slate-300 hover:text-white shadow-xl shadow-black/40 backdrop-blur-md transition-all duration-200 cursor-pointer group"
         >
-          <FiArrowUp className="text-white text-xl group-hover:-translate-y-0.5 transition-transform" />
+          <FiArrowUp className="text-lg group-hover:-translate-y-0.5 transition-transform" />
         </motion.button>
       )}
     </AnimatePresence>

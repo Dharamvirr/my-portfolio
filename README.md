@@ -1,105 +1,49 @@
-# Dharamvir Singh — Portfolio
+# Dharamvir Singh — High-Performance Engineering Portfolio
 
-> A modern, responsive **React** portfolio website with Tailwind CSS, Framer Motion, and premium animations — no backend needed.
+> Software Development Engineer specializing in distributed backend systems, data pipeline optimization, and high-concurrency architecture.
 
-## ✨ Features
+Candidate: **Dharamvir Singh**  
+Institute: **Motilal Nehru National Institute of Technology (MNNIT) Allahabad** ('26)  
+Experience: **Ex-SDE Intern @ DealShare** (Data Engineering & Platform Infrastructure)  
+Competitive Highlights: **LeetCode Knight (1925, Top 3.82%)** · **Codeforces Expert (1600)** · **2,000+ Algorithmic Solves**
 
-- 🎨 **Dark theme** with glassmorphism UI
-- 🖱️ **Custom animated cursor** with hover states
-- ✨ **Interactive particle network** with mouse repulsion
-- 📐 **3D tilt cards** + **spotlight cursor glow** on project cards
-- 🧲 **Magnetic buttons** (CTAs follow cursor slightly)
-- 🎭 **Cinema mask reveal** on section headings
-- ⌨️ **Typewriter animation** cycling through 6 roles
-- 📊 **Animated CountUp stats** (LeetCode 1925, CF 1600, 2000+)
-- 📈 **Live GitHub stats & streak** embeds
-- 🏆 **LeetCode card** with activity heatmap
-- ⏳ **Vertical timeline** for experience with metrics
-- 📬 **Contact form** via [Web3Forms](https://web3forms.com) — no backend needed!
-- 📱 **Fully responsive** with mobile menu
-- ♿ **Accessible** — prefers-reduced-motion, skip-to-content, ARIA labels
-- ⬆️ **Back-to-top** floating button
-- 📊 **Scroll progress bar** at top of page
-- 🚀 **Loading screen** with logo animation
-- ⚡ **Code-split** — all sections lazy-loaded
+---
 
-## 🏗️ Project Structure
+## 💎 Design Philosophy & Standards
 
-```
-my-portfolio/
-├── client/                  ← React + Vite
-│   ├── public/
-│   │   ├── Dharamvir_Resume.pdf
-│   │   ├── robots.txt
-│   │   └── sitemap.xml
-│   └── src/
-│       ├── components/      ← All React components
-│       ├── data/
-│       │   └── resumeData.js ← All resume data (centralized)
-│       ├── App.jsx
-│       ├── main.jsx
-│       └── index.css
-├── .gitignore
-└── README.md
-```
+This portfolio was architected and reviewed against the industry's premier design and code standards:
 
-## 🚀 Getting Started
+1. **`pbakaus/impeccable`**: Completely purged all "AI slop" clichés — no artificial loading spinners, no hijacked custom cursor, no rainbow neon gradients, no particle canvases, and no fake code gimmicks.
+2. **`vercel-labs/agent-skills` (Web Design Guidelines)**: Zero-latency first paint, semantic landmark architecture, full `:focus-visible` keyboard accessibility, and zero CPU-wasting layout shifts.
+3. **`anthropics/skills` (Frontend Design)**: Opinionated dark obsidian palette (`#08090C`, `#0F1118`), sharp typographic hierarchy (`Plus Jakarta Sans` + `Inter` + `JetBrains Mono`), and deliberate systems engineering visual identity.
+4. **`leonxlnx/taste-skill`**: Authentic engineering artifacts, real production telemetry metrics, and high-craft interactive showcases.
+5. **`nextlevelbuilder/ui-ux-pro-max-skill`**: Consistent design token spacing, tactile micro-interactions, WCAG AAA/AA contrast, and disciplined 60-30-10 color distribution.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: React 18 + Vite 5
+- **Styling**: Tailwind CSS + Custom Obsidian Design System
+- **Typography**: Plus Jakarta Sans, Inter, JetBrains Mono
+- **Motion**: Framer Motion (Optimized, prefers-reduced-motion compliant)
+- **Icons**: React Icons (Simple Icons + Feather Icons)
+- **Notifications**: React Hot Toast
+- **Contact Handling**: Web3Forms API integration
+
+---
+
+## 🚀 Quickstart
 
 ```bash
 cd client
 npm install
 npm run dev
-# Opens at http://localhost:5173
 ```
 
-That's it! No backend, no database, no environment variables needed.
+To build for production:
 
-## 📬 Contact Form Setup (Optional)
-
-The contact form uses [Web3Forms](https://web3forms.com) — a free service that emails form submissions directly to you.
-
-1. Go to [web3forms.com](https://web3forms.com)
-2. Enter your email → you'll receive an **Access Key** via email
-3. Open `client/src/components/Contact.jsx`
-4. Replace `YOUR_ACCESS_KEY_HERE` with your key:
-   ```js
-   const WEB3FORMS_KEY = 'your-actual-key-here'
-   ```
-5. Done! Form submissions will now be emailed to you directly.
-
-## 📦 Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | React 18 (Vite) |
-| Styling | Tailwind CSS v3 |
-| Animations | Framer Motion |
-| Typewriter | react-type-animation |
-| Counters | react-countup |
-| Icons | react-icons |
-| Toasts | react-hot-toast |
-| Scroll | react-scroll |
-| Contact Form | Web3Forms (no backend) |
-
-## 🌐 Deploy
-
-### Vercel (Recommended)
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy from client folder
-cd client
-vercel
+npm run build
+npm run preview
 ```
-
-### Netlify
-- Drag and drop the `client/dist` folder after running `npm run build`
-
-## 👤 About
-
-Built by **Dharamvir Singh** — SDE Intern @DealShare | MNNIT Allahabad | LeetCode Knight (1925) | Codeforces Expert (1600)
-
-- 📧 dharamvir78914@gmail.com
-- 💼 [LinkedIn](https://www.linkedin.com/in/coderdharamvir/)
-- 🐙 [GitHub](https://github.com/Dharamvirr)

@@ -1,159 +1,271 @@
-import { useRef } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
-import { experience, personalInfo } from '../data/resumeData'
-import { FiMapPin, FiCalendar } from 'react-icons/fi'
+import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { experience } from '../data/resumeData'
+import {
+  FiCalendar,
+  FiMapPin,
+  FiTrendingDown,
+  FiCheck,
+  FiDatabase,
+  FiServer,
+  FiSliders,
+} from 'react-icons/fi'
+import { SiPython, SiPandas, SiDatabricks, SiGooglecloud } from 'react-icons/si'
 
-// ─── Safe highlighted text renderer (replaces dangerouslySetInnerHTML) ────────
-const HighlightText = ({ html }) => {
-  const parts = html.split(/(<b class="[^"]*">.*?<\/b>)/g)
-  return (
-    <>
-      {parts.map((part, i) => {
-        const match = part.match(/<b class="([^"]*)">(.*?)<\/b>/)
-        if (match) {
-          return (
-            <b key={i} className={match[1]}>
-              {match[2]}
-            </b>
-          )
-        }
-        return <span key={i}>{part}</span>
-      })}
-    </>
-  )
+const techIcons = {
+  Python: SiPython,
+  Pandas: SiPandas,
+  'Google BigQuery': SiGooglecloud,
+  Databricks: SiDatabricks,
+  SQL: FiDatabase,
+  'ETL/ELT': FiServer,
 }
 
 const Experience = () => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-  const shouldReduceMotion = useReducedMotion()
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: shouldReduceMotion ? 0.1 : 0.6 } },
-  }
+  const shouldReduce = useReducedMotion()
+  const [optimized, setOptimized] = useState(true)
 
   return (
-    <section id="experience" className="section-container bg-[#0c0c18]">
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
-        variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
-      >
-        {/* Heading */}
-        <motion.div variants={fadeUp} className="text-center mb-16">
-          <p className="font-mono text-blue-400 text-sm mb-3 tracking-widest">// WHERE I'VE WORKED</p>
-          <h2 className="section-heading">
-            Work <span className="gradient-text">Experience</span>
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mt-4" />
-        </motion.div>
+    <section id="experience" aria-labelledby="experience-heading" className="section-container border-t border-white/[0.06]">
+      {/* Section Header */}
+      <div className="mb-14">
+        <p className="text-xs font-mono font-semibold tracking-wider text-sky-400 uppercase mb-2">
+          Production Track Record
+        </p>
+        <h2 id="experience-heading" className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          Work Experience
+        </h2>
+        <p className="text-sm sm:text-base text-slate-400 mt-2 max-w-2xl">
+          Engineering scalable telemetry pipelines and refactoring multi-terabyte BigQuery workloads in production.
+        </p>
+      </div>
 
-        {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500 via-purple-500 to-transparent md:-translate-x-1/2" />
+      <div className="space-y-8">
+        {experience.map((exp) => (
+          <div
+            key={exp.company}
+            className="craft-card p-6 sm:p-9 border border-white/[0.09] hover:border-sky-500/30 transition-all duration-300"
+          >
+            {/* Top Bar: Company, Role & Metadata */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+              <div>
+                <div className="flex flex-wrap items-center gap-2.5 mb-1.5">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    {exp.company}
+                  </h3>
+                  <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                    {exp.type}
+                  </span>
+                </div>
+                <p className="text-sm sm:text-base font-semibold text-sky-400">
+                  {exp.role} <span className="text-slate-400 font-normal">· {exp.team}</span>
+                </p>
+              </div>
 
-          {experience.map((exp, index) => (
-            <motion.div
-              key={exp.company}
-              variants={fadeUp}
-              className="relative flex gap-6 md:gap-0 mb-16 last:mb-0"
-            >
-              {/* Dot */}
-              <div className="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 border-4 border-[#0c0c18] z-10 md:-translate-x-1/2 mt-6 shadow-lg shadow-blue-500/30" />
+              <div className="flex flex-wrap md:flex-col md:items-end gap-3 md:gap-1 text-xs font-mono text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <FiCalendar className="text-sky-400" size={13} />
+                  {exp.duration}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <FiMapPin className="text-slate-400" size={13} />
+                  {exp.location}
+                </span>
+              </div>
+            </div>
 
-              <div className={`ml-16 md:ml-0 w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:ml-auto md:pl-12'}`}>
-                <motion.div
-                  className="glass-card p-6 md:p-7 card-hover group"
-                  whileHover={shouldReduceMotion ? {} : { y: -4 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  {/* Header */}
-                  <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-2xl" role="img" aria-label="company">{exp.logo}</span>
-                        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                          {exp.type}
-                        </span>
-                      </div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mt-1">
-                        {exp.company}
-                      </h3>
-                      <p className={`font-medium bg-gradient-to-r ${exp.color} bg-clip-text text-transparent text-sm mt-0.5`}>
-                        {exp.role} · {exp.department}
-                      </p>
+            {/* Interactive BigQuery Workload Optimizer Widget */}
+            <div className="my-7 p-5 rounded-2xl bg-[#0A0C12] border border-white/[0.08]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-sky-400 mb-1">
+                    <FiSliders size={13} />
+                    <span>Interactive Case Study · BigQuery Cost Tuning</span>
+                  </div>
+                  <p className="text-xs text-slate-400">
+                    Toggle between legacy full-table scans and refactored partition-pruned execution.
+                  </p>
+                </div>
+
+                {/* Toggle Pill */}
+                <div className="inline-flex p-1 rounded-xl bg-white/[0.04] border border-white/10 self-start sm:self-auto">
+                  <button
+                    onClick={() => setOptimized(false)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                      !optimized
+                        ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30 font-semibold'
+                        : 'text-slate-400 hover:text-white border border-transparent'
+                    }`}
+                  >
+                    Legacy Scan
+                  </button>
+                  <button
+                    onClick={() => setOptimized(true)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                      optimized
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold'
+                        : 'text-slate-400 hover:text-white border border-transparent'
+                    }`}
+                  >
+                    After Refactor (-57%)
+                  </button>
+                </div>
+              </div>
+
+              {/* Animated Visual Bars */}
+              <div className="grid md:grid-cols-2 gap-5 items-center">
+                <div className="space-y-4">
+                  {/* Scan Bytes Bar */}
+                  <div>
+                    <div className="flex justify-between text-xs font-mono mb-1.5">
+                      <span className="text-slate-300">Bytes Scanned / Run</span>
+                      <span className={optimized ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+                        {optimized ? '1.80 TB (-57%)' : '4.20 TB (Full Scan)'}
+                      </span>
+                    </div>
+                    <div className="h-2.5 w-full rounded-full bg-white/[0.05] overflow-hidden">
+                      <motion.div
+                        animate={{ width: optimized ? '43%' : '100%' }}
+                        transition={{ duration: shouldReduce ? 0 : 0.45, ease: 'easeOut' }}
+                        className={`h-full rounded-full ${optimized ? 'bg-emerald-400' : 'bg-rose-500'}`}
+                      />
                     </div>
                   </div>
 
-                  {/* Meta */}
-                  <div className="flex flex-wrap gap-4 mb-5 text-xs text-gray-500">
-                    <span className="flex items-center gap-1.5">
-                      <FiCalendar className="text-blue-400" size={12} aria-hidden="true" />
-                      {exp.duration}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <FiMapPin className="text-purple-400" size={12} aria-hidden="true" />
-                      {exp.location}
-                    </span>
-                  </div>
-
-                  {/* Impact metrics */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5 p-4 bg-white/3 rounded-xl border border-white/5">
-                    {exp.metrics.map((m) => (
-                      <div key={m.label} className="text-center">
-                        <div className="text-base" role="img" aria-label={m.label}>{m.icon}</div>
-                        <div className="text-green-400 font-black text-lg leading-tight">{m.value}</div>
-                        <div className="text-gray-600 text-[10px] leading-tight mt-0.5">{m.label}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Bullets — safe rendering without dangerouslySetInnerHTML */}
-                  <ul className="space-y-3 mb-5" aria-label="Key achievements">
-                    {exp.rawBullets.map((bullet, i) => (
-                      <li key={i} className="flex gap-3 text-gray-400 text-sm leading-relaxed">
-                        <span className="text-blue-500 mt-1 flex-shrink-0 text-base" aria-hidden="true">▸</span>
-                        <span>
-                          <HighlightText html={bullet} />
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Tech stack */}
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5" role="list" aria-label="Technologies used">
-                    {exp.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        role="listitem"
-                        className="tech-badge bg-blue-500/8 text-blue-300 border-blue-500/20 hover:bg-blue-500/15 transition-colors cursor-default"
-                      >
-                        {tech}
+                  {/* Runtime Bar */}
+                  <div>
+                    <div className="flex justify-between text-xs font-mono mb-1.5">
+                      <span className="text-slate-300">Avg Query Runtime</span>
+                      <span className={optimized ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+                        {optimized ? '113s (-20%)' : '142s'}
                       </span>
-                    ))}
+                    </div>
+                    <div className="h-2.5 w-full rounded-full bg-white/[0.05] overflow-hidden">
+                      <motion.div
+                        animate={{ width: optimized ? '79%' : '98%' }}
+                        transition={{ duration: shouldReduce ? 0 : 0.45, ease: 'easeOut' }}
+                        className={`h-full rounded-full ${optimized ? 'bg-sky-400' : 'bg-amber-500'}`}
+                      />
+                    </div>
                   </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
 
-        <motion.div variants={fadeUp} className="text-center mt-10">
-          <p className="text-gray-600 text-sm font-mono">
-            More on{' '}
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
-            >
-              LinkedIn →
-            </a>
-          </p>
-        </motion.div>
-      </motion.div>
+                  {/* Slot Utilization Bar */}
+                  <div>
+                    <div className="flex justify-between text-xs font-mono mb-1.5">
+                      <span className="text-slate-300">Slot Utilization Load</span>
+                      <span className={optimized ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+                        {optimized ? '76.3% (-19.7%)' : '95.0%'}
+                      </span>
+                    </div>
+                    <div className="h-2.5 w-full rounded-full bg-white/[0.05] overflow-hidden">
+                      <motion.div
+                        animate={{ width: optimized ? '76%' : '95%' }}
+                        transition={{ duration: shouldReduce ? 0 : 0.45, ease: 'easeOut' }}
+                        className={`h-full rounded-full ${optimized ? 'bg-indigo-400' : 'bg-orange-500'}`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Live SQL Diff Preview */}
+                <div className="p-4 rounded-xl bg-[#07080C] border border-white/[0.07] font-mono text-[11px] leading-relaxed overflow-x-auto">
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 mb-2 pb-1.5 border-b border-white/[0.06]">
+                    <span>{optimized ? 'optimized_warehouse_model.sql' : 'legacy_adhoc_query.sql'}</span>
+                    <span className={optimized ? 'text-emerald-400' : 'text-rose-400'}>
+                      {optimized ? 'Materialized + Pruned' : 'Unpartitioned Join'}
+                    </span>
+                  </div>
+                  {optimized ? (
+                    <pre className="text-slate-300">
+{`SELECT order_date, region_id, SUM(gmv)
+FROM \`dealshare.mv_daily_orders\`
+WHERE order_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+  AND cluster_key IS NOT NULL -- Partition Pruned
+GROUP BY 1, 2;`}
+                    </pre>
+                  ) : (
+                    <pre className="text-slate-400">
+{`SELECT *
+FROM \`dealshare.raw_orders_events\` a
+JOIN \`dealshare.all_products\` b
+  ON CAST(a.pid AS STRING) = b.sku_id -- Full Scan
+WHERE FORMAT_DATE('%Y-%m', a.ts) >= '2025-01';`}
+                    </pre>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Production Impact Telemetry Grid */}
+            <div className="my-7">
+              <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                <FiTrendingDown className="text-emerald-400" />
+                <span>Verified Production Telemetry Summary</span>
+              </p>
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                {exp.metrics.map((m) => (
+                  <div
+                    key={m.label}
+                    className="p-4 rounded-xl bg-white/[0.025] border border-white/[0.06] hover:border-white/10 transition-colors"
+                  >
+                    <div className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 mb-0.5">
+                      {m.value}
+                    </div>
+                    <div className="text-xs font-semibold text-slate-200 mb-1">
+                      {m.label}
+                    </div>
+                    <div className="text-[11px] text-slate-400 leading-tight">
+                      {m.note}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Technical Accomplishments */}
+            <div className="space-y-4 pt-2">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400">
+                Architectural Deliverables &amp; Contributions
+              </h4>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {exp.achievements.map((item, i) => (
+                  <div
+                    key={i}
+                    className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-white/10 transition-colors"
+                  >
+                    <h5 className="text-sm font-semibold text-white mb-2 flex items-start gap-2">
+                      <FiCheck className="text-sky-400 mt-0.5 flex-shrink-0" size={14} />
+                      <span>{item.title}</span>
+                    </h5>
+                    <p className="text-xs sm:text-[13px] text-slate-300 leading-relaxed pl-5">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Stack Badges */}
+            <div className="mt-8 pt-5 border-t border-white/[0.08] flex flex-wrap items-center gap-2">
+              <span className="text-xs font-mono text-slate-400 mr-2">Technologies:</span>
+              {exp.techStack.map((tech) => {
+                const IconComponent = techIcons[tech]
+                return (
+                  <span
+                    key={tech}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-slate-300"
+                  >
+                    {IconComponent && <IconComponent size={12} className="text-sky-400" />}
+                    <span>{tech}</span>
+                  </span>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }

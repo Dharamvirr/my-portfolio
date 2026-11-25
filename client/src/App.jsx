@@ -1,69 +1,113 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import { Toaster } from 'react-hot-toast'
-import Loader from './components/Loader'
-import CustomCursor from './components/CustomCursor'
-import ScrollProgress from './components/ScrollProgress'
 import Navbar from './components/Navbar'
+import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
+import SwarmOverlay from './components/SwarmOverlay'
+import CommandPalette from './components/CommandPalette'
 
-// ─── Lazy-load heavy sections for code splitting ──────────────────────────────
-const Hero         = lazy(() => import('./components/Hero'))
-const About        = lazy(() => import('./components/About'))
-const Experience   = lazy(() => import('./components/Experience'))
-const Projects     = lazy(() => import('./components/Projects'))
-const Skills       = lazy(() => import('./components/Skills'))
+// Sections
+import Hero from './components/Hero'
+const About = lazy(() => import('./components/About'))
+const Experience = lazy(() => import('./components/Experience'))
+const Projects = lazy(() => import('./components/Projects'))
+const Skills = lazy(() => import('./components/Skills'))
 const Achievements = lazy(() => import('./components/Achievements'))
-const Contact      = lazy(() => import('./components/Contact'))
-const Footer       = lazy(() => import('./components/Footer'))
+const Contact = lazy(() => import('./components/Contact'))
+const Footer = lazy(() => import('./components/Footer'))
 
-// Minimal spinner shown while a section chunk loads
+// Lightweight section skeleton fallback for code-split chunks
 const SectionFallback = () => (
-  <div className="min-h-[200px] flex items-center justify-center">
-    <div className="w-7 h-7 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+  <div className="py-24 flex items-center justify-center" aria-hidden="true">
+    <div className="w-6 h-6 border-2 border-white/10 border-t-sky-400 rounded-full animate-spin" />
   </div>
 )
 
 function App() {
-  const [loading, setLoading] = useState(true)
+  const [paletteOpen, setPaletteOpen] = useState(false)
+  const [swarmActive, setSwarmActive] = useState(true)
 
+  // Global Cmd+K / Ctrl+K shortcut for Command Palette
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2600)
-    return () => clearTimeout(timer)
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setPaletteOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  if (loading) return <Loader />
+  const handleReplaySwarm = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setSwarmActive(false)
+    requestAnimationFrame(() => {
+      setSwarmActive(true)
+    })
+  }, [])
+
+  const handleFinishSwarm = useCallback(() => {
+    setSwarmActive(false)
+  }, [])
 
   return (
-    <div className="relative bg-[#0a0a0a] text-white overflow-x-hidden">
-      <CustomCursor />
+    <div className="relative min-h-screen bg-[#08090C] text-[#F8FAFC]">
+      {/* Precision scroll hairline */}
       <ScrollProgress />
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: '#1a1a2e',
-            color: '#fff',
-            border: '1px solid rgba(59, 130, 246, 0.2)',
-            borderRadius: '12px',
-            fontSize: '14px',
-          },
-          success: { iconTheme: { primary: '#4ade80', secondary: '#0a0a0a' } },
-          error:   { iconTheme: { primary: '#f87171', secondary: '#0a0a0a' } },
-        }}
-      />
-      <Navbar />
 
-      {/* Skip to content — accessibility */}
+      {/* Native Multiplayer Swarm Overlay */}
+      <SwarmOverlay active={swarmActive} onFinish={handleFinishSwarm} />
+
+      {/* Linear-style Cmd+K Command Palette */}
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+        onReplaySwarm={handleReplaySwarm}
+      />
+
+      {/* Accessible Skip Link */}
       <a
-        href="#about"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-500 focus:text-white focus:rounded-lg focus:text-sm focus:font-medium"
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-md focus:font-medium focus:shadow-lg focus:outline-none"
       >
         Skip to main content
       </a>
 
-      <main id="main-content">
-        <Suspense fallback={<SectionFallback />}><Hero /></Suspense>
+      {/* Notifications */}
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 3500,
+          style: {
+            background: '#0F121A',
+            color: '#F8FAFC',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '10px',
+            fontSize: '13px',
+            fontFamily: 'Inter, sans-serif',
+          },
+          success: {
+            iconTheme: { primary: '#38BDF8', secondary: '#08090C' },
+          },
+          error: {
+            iconTheme: { primary: '#EF4444', secondary: '#08090C' },
+          },
+        }}
+      />
+
+      {/* Fixed Navigation */}
+      <Navbar
+        onOpenPalette={() => setPaletteOpen(true)}
+        onReplaySwarm={handleReplaySwarm}
+      />
+
+      {/* Main Content Landmarks */}
+      <main id="main-content" tabIndex={-1} className="outline-none">
+        <Hero
+          onReplaySwarm={handleReplaySwarm}
+          onOpenPalette={() => setPaletteOpen(true)}
+        />
         <Suspense fallback={<SectionFallback />}><About /></Suspense>
         <Suspense fallback={<SectionFallback />}><Experience /></Suspense>
         <Suspense fallback={<SectionFallback />}><Projects /></Suspense>
@@ -72,7 +116,10 @@ function App() {
         <Suspense fallback={<SectionFallback />}><Contact /></Suspense>
       </main>
 
-      <Suspense fallback={null}><Footer /></Suspense>
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
+
       <BackToTop />
     </div>
   )

@@ -1,287 +1,218 @@
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import { TypeAnimation } from 'react-type-animation'
+import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-scroll'
-import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiDownload } from 'react-icons/fi'
-import { SiLeetcode, SiCodeforces } from 'react-icons/si'
-import Particles from './Particles'
-import MagneticButton from './MagneticButton'
-import { personalInfo } from '../data/resumeData'
+import {
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiDownload,
+  FiCopy,
+  FiCheck,
+  FiArrowRight,
+  FiZap,
+  FiCommand,
+} from 'react-icons/fi'
+import { SiLeetcode, SiCodeforces, SiCodechef, SiYoutube } from 'react-icons/si'
+import toast from 'react-hot-toast'
+import { personalInfo, heroMetrics } from '../data/resumeData'
 
 const socialLinks = [
-  { icon: FiGithub,    href: personalInfo.github,              label: 'GitHub',     color: 'hover:text-white' },
-  { icon: FiLinkedin,  href: personalInfo.linkedin,            label: 'LinkedIn',   color: 'hover:text-blue-400' },
-  { icon: FiMail,      href: `mailto:${personalInfo.email}`,   label: 'Email',      color: 'hover:text-red-400' },
-  { icon: SiLeetcode,  href: personalInfo.leetcode,            label: 'LeetCode',   color: 'hover:text-yellow-400' },
-  { icon: SiCodeforces,href: personalInfo.codeforces,          label: 'Codeforces', color: 'hover:text-cyan-400' },
+  { icon: FiGithub, href: personalInfo.github, label: 'GitHub' },
+  { icon: FiLinkedin, href: personalInfo.linkedin, label: 'LinkedIn' },
+  { icon: SiLeetcode, href: personalInfo.leetcode, label: 'LeetCode' },
+  { icon: SiCodeforces, href: personalInfo.codeforces, label: 'Codeforces' },
+  { icon: SiCodechef, href: personalInfo.codechef, label: 'CodeChef' },
+  { icon: SiYoutube, href: personalInfo.youtube, label: 'YouTube' },
+  { icon: FiMail, href: `mailto:${personalInfo.email}`, label: 'Email' },
 ]
 
-const heroStats = [
-  { label: '2000+', sub: 'DSA Problems',       color: 'text-green-400'  },
-  { label: '1925',  sub: 'LeetCode Rating',    color: 'text-yellow-400' },
-  { label: '1600',  sub: 'Codeforces Rating',  color: 'text-blue-400'   },
-  { label: '7.69',  sub: 'MNNIT CPI',          color: 'text-purple-400' },
-]
-
-// Stagger each word in the name
-const nameVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-}
-const wordVariant = {
-  hidden: { y: '110%', opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
-  },
-}
-
-const Hero = () => {
-  const { scrollY } = useScroll()
+const Hero = ({ onReplaySwarm, onOpenPalette }) => {
   const shouldReduce = useReducedMotion()
+  const [copied, setCopied] = useState(false)
 
-  // Parallax transforms — blobs move at different speeds
-  const blob1Y  = useTransform(scrollY, [0, 600], [0, shouldReduce ? 0 : -90])
-  const blob2Y  = useTransform(scrollY, [0, 600], [0, shouldReduce ? 0 : -50])
-  const blob3Y  = useTransform(scrollY, [0, 600], [0, shouldReduce ? 0 : -120])
-  const contentY = useTransform(scrollY, [0, 500], [0, shouldReduce ? 0 : 50])
-  const contentOpacity = useTransform(scrollY, [0, 350], [1, 0])
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(personalInfo.email)
+    setCopied(true)
+    toast.success('Email copied to clipboard')
+    setTimeout(() => setCopied(false), 2200)
+  }
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      aria-label="Introduction"
+      className="relative min-h-[94vh] flex items-center justify-center pt-24 pb-16 overflow-hidden"
     >
-      {/* ─── Animated morphing background blobs ───────────────────────── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          style={{ y: blob1Y }}
-          className="absolute top-[15%] left-[10%] w-[550px] h-[550px] blob-shape"
-          animate={shouldReduce ? {} : {
-            scale:  [1, 1.08, 0.95, 1.05, 1],
-            rotate: [0, 15, -10, 5, 0],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <div className="w-full h-full bg-blue-600/[0.07] blur-[130px] rounded-full" />
-        </motion.div>
-
-        <motion.div
-          style={{ y: blob2Y }}
-          className="absolute bottom-[15%] right-[10%] w-[440px] h-[440px]"
-          animate={shouldReduce ? {} : {
-            scale:  [1, 0.92, 1.1, 0.97, 1],
-            rotate: [0, -12, 18, -5, 0],
-          }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-        >
-          <div className="w-full h-full bg-purple-600/[0.07] blur-[110px] rounded-full" />
-        </motion.div>
-
-        <motion.div
-          style={{ y: blob3Y }}
-          className="absolute top-[55%] left-[50%] -translate-x-1/2 w-[320px] h-[320px]"
-          animate={shouldReduce ? {} : {
-            scale: [1, 1.15, 0.9, 1],
-            x: [-30, 30, -20, 0],
-          }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
-        >
-          <div className="w-full h-full bg-pink-600/[0.05] blur-[90px] rounded-full" />
-        </motion.div>
-
-        <Particles />
-      </div>
-
-      {/* Grid dot overlay */}
+      {/* Precision Architectural Matrix */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-45"
         style={{
-          backgroundImage: `radial-gradient(rgba(59,130,246,0.07) 1px, transparent 1px)`,
-          backgroundSize: '32px 32px',
+          backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)`,
+          backgroundSize: '48px 48px',
+          maskImage: 'radial-gradient(ellipse at 50% 25%, black 15%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at 50% 25%, black 15%, transparent 75%)',
         }}
       />
 
-      {/* ─── Content with parallax ──────────────────────────────────────── */}
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-20"
-      >
-        {/* Open-to-work badge */}
+      {/* Overhead Atmospheric Beam */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-24 left-1/2 -translate-x-1/2 w-[820px] h-[380px] bg-gradient-to-b from-sky-500/15 via-blue-600/5 to-transparent blur-3xl pointer-events-none"
+      />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
+        {/* Top Status + Quick Interactive Controls */}
         <motion.div
-          initial={{ opacity: 0, y: -24, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, ease: 'backOut' }}
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full
-                     border border-green-500/30 bg-green-500/[0.08] text-green-400
-                     text-sm font-medium mb-10 backdrop-blur-sm"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-          </span>
-          Open to Work — Available for SDE Roles
-        </motion.div>
-
-        {/* Name — word by word mask reveal */}
-        <div className="mb-6">
-          <motion.div
-            variants={shouldReduce ? {} : nameVariants}
-            initial="hidden"
-            animate="visible"
-            className="overflow-hidden"
-          >
-            <div className="flex flex-col items-center gap-0">
-              {/* "Dharamvir" */}
-              <div className="overflow-hidden">
-                <motion.h1
-                  variants={shouldReduce ? {} : wordVariant}
-                  className="text-6xl sm:text-7xl md:text-[100px] font-black
-                             leading-none tracking-tighter gradient-text select-none"
-                >
-                  Dharamvir
-                </motion.h1>
-              </div>
-              {/* "Singh" */}
-              <div className="overflow-hidden">
-                <motion.span
-                  variants={shouldReduce ? {} : wordVariant}
-                  className="text-6xl sm:text-7xl md:text-[100px] font-black
-                             leading-none tracking-tighter text-white select-none block"
-                >
-                  Singh
-                </motion.span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Typewriter */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-lg sm:text-2xl font-mono mb-5 h-10 flex items-center justify-center"
-        >
-          <TypeAnimation
-            sequence={[
-              'SDE Intern @ DealShare', 2500,
-              'Data Engineering Enthusiast', 2000,
-              'LeetCode Knight — Rating 1925', 2500,
-              'Codeforces Expert — Rating 1600', 2500,
-              'MNNIT Allahabad | B.Tech ECE', 2000,
-              '2000+ DSA Problems Solved', 2000,
-            ]}
-            wrapper="span"
-            speed={55}
-            repeat={Infinity}
-            className="text-blue-400"
-          />
-        </motion.div>
-
-        {/* Code-style tagline */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.0 }}
-          className="font-mono text-sm text-gray-600 mb-10 select-none"
-        >
-          <span className="text-blue-500">const</span>{' '}
-          <span className="text-purple-400">mission</span>{' '}
-          <span className="text-gray-500">=</span>{' '}
-          <span className="text-green-400">&quot;{personalInfo.tagline}&quot;</span>
-          <span className="text-gray-500">;</span>
-        </motion.p>
-
-        {/* CTA buttons — with magnetic effect */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduce ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-          className="flex flex-wrap items-center justify-center gap-5 mb-12"
+          transition={{ duration: 0.35 }}
+          className="flex flex-wrap items-center justify-center gap-2.5 mb-7"
         >
-          <MagneticButton strength={0.25}>
-            <Link to="projects" smooth duration={600} offset={-80}>
-              <button className="btn-primary flex items-center gap-2 text-base px-9 py-3.5">
-                View My Work 🚀
-              </button>
-            </Link>
-          </MagneticButton>
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-slate-200 backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-65" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span>Open to SDE Roles (2026 Batch) · MNNIT Allahabad</span>
+          </div>
 
-          <MagneticButton strength={0.25}>
-            <a
-              href="/Dharamvir_Resume.pdf"
-              download="Dharamvir_Singh_Resume.pdf"
-              className="btn-outline flex items-center gap-2 text-base px-9 py-3.5"
-            >
-              <FiDownload size={16} /> Resume
-            </a>
-          </MagneticButton>
+          <button
+            onClick={onReplaySwarm}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/25 text-[11px] font-mono font-medium text-sky-300 transition-colors cursor-pointer"
+          >
+            <FiZap size={12} />
+            <span>Replay Swarm Build</span>
+          </button>
         </motion.div>
 
-        {/* Social icons */}
+        {/* Main Hero Typography */}
+        <motion.div
+          initial={{ opacity: 0, y: shouldReduce ? 0 : 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.08 }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          <h1 className="text-4xl sm:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight text-white mb-5 leading-[1.05]">
+            Dharamvir Singh
+          </h1>
+
+          <p className="text-lg sm:text-2xl font-medium text-slate-300 mb-5 leading-relaxed">
+            Software Engineer building{' '}
+            <span className="text-white font-semibold">scalable backend systems</span>,{' '}
+            <span className="text-sky-400 font-semibold">high-efficiency data pipelines</span> &amp;{' '}
+            <span className="text-indigo-300 font-semibold">agentic AI workflows</span>.
+          </p>
+
+          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Ex-SDE Intern at <strong className="text-slate-200 font-semibold">DealShare</strong>{' '}
+            (slashed BigQuery scan costs by <strong className="text-emerald-400 font-semibold">57%</strong>).{' '}
+            <strong className="text-amber-400 font-semibold">LeetCode Knight (1925)</strong> &amp;{' '}
+            <strong className="text-sky-400 font-semibold">Codeforces Expert (1600)</strong> with 2,000+ algorithmic solves. Building GenAI workflows with <strong className="text-indigo-300 font-semibold">LangChain, LangGraph</strong>, RAG, Agent Memory &amp; Human-in-the-Loop.
+          </p>
+        </motion.div>
+
+        {/* Primary Action Cluster */}
+        <motion.div
+          initial={{ opacity: 0, y: shouldReduce ? 0 : 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.16 }}
+          className="flex flex-wrap items-center justify-center gap-3 mb-10"
+        >
+          <Link
+            to="experience"
+            smooth
+            duration={500}
+            offset={-70}
+            className="btn-primary cursor-pointer"
+          >
+            <span>Explore Interactive Work</span>
+            <FiArrowRight size={15} />
+          </Link>
+
+          <a
+            href="/Dharamvir_Resume.pdf"
+            download="Dharamvir_Singh_Resume.pdf"
+            className="btn-secondary"
+          >
+            <FiDownload size={15} />
+            <span>Download Resume</span>
+          </a>
+
+          <button
+            onClick={handleCopyEmail}
+            className="btn-secondary group font-mono text-xs"
+            title="Copy email to clipboard"
+          >
+            {copied ? (
+              <>
+                <FiCheck className="text-emerald-400" size={14} />
+                <span className="text-emerald-400">Copied!</span>
+              </>
+            ) : (
+              <>
+                <FiCopy className="text-slate-400 group-hover:text-white transition-colors" size={14} />
+                <span>{personalInfo.email}</span>
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={onOpenPalette}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-[10px] bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 text-xs font-mono text-slate-300 transition-colors cursor-pointer"
+          >
+            <FiCommand size={13} className="text-sky-400" />
+            <span>K</span>
+          </button>
+        </motion.div>
+
+        {/* Social Bar */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.3 }}
-          className="flex items-center justify-center gap-7 mb-16"
+          transition={{ duration: 0.45, delay: 0.22 }}
+          className="flex items-center justify-center gap-5 mb-12 text-slate-400"
         >
-          {socialLinks.map(({ icon: Icon, href, label, color }, i) => (
-            <motion.a
+          {socialLinks.map(({ icon: Icon, href, label }) => (
+            <a
               key={label}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              title={label}
               aria-label={label}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3 + i * 0.07 }}
-              whileHover={{ scale: 1.3, y: -4 }}
-              className={`text-gray-500 ${color} transition-colors duration-200`}
+              title={label}
+              className="p-2 rounded-lg hover:text-white hover:bg-white/[0.06] border border-transparent hover:border-white/10 transition-all duration-150"
             >
-              <Icon size={22} />
-            </motion.a>
+              <Icon size={18} />
+            </a>
           ))}
         </motion.div>
 
-        {/* Stats row */}
+        {/* Bento Proof-of-Work Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduce ? 0 : 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.45 }}
-          className="flex flex-wrap justify-center gap-10 mb-16"
+          transition={{ duration: 0.45, delay: 0.28 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3.5"
         >
-          {heroStats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              className="text-center group cursor-default"
-              whileHover={{ scale: 1.12 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+          {heroMetrics.map((item) => (
+            <div
+              key={item.label}
+              className={`craft-card group relative overflow-hidden p-5 text-left border border-white/[0.08] ${item.border} transition-all duration-200`}
             >
-              <div className={`text-2xl sm:text-3xl font-black ${s.color}`}>{s.label}</div>
-              <div className="text-xs text-gray-600 mt-0.5 tracking-wide">{s.sub}</div>
-            </motion.div>
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className={`font-mono text-2xl sm:text-3xl font-bold tracking-tight mb-1 ${item.accent}`}>
+                {item.value}
+              </div>
+              <div className="text-xs sm:text-sm font-semibold text-white mb-0.5">
+                {item.label}
+              </div>
+              <div className="text-[11px] text-slate-400 font-mono">
+                {item.detail}
+              </div>
+            </div>
           ))}
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8 }}
-          className="flex flex-col items-center gap-1 text-gray-700"
-        >
-          <motion.div
-            animate={shouldReduce ? {} : { y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center gap-1"
-          >
-            <span className="text-xs font-mono tracking-widest">scroll down</span>
-            <FiArrowDown size={13} />
-          </motion.div>
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }
