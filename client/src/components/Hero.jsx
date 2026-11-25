@@ -62,6 +62,7 @@ const Hero = ({ onOpenPalette }) => {
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
         {/* Top Status */}
         <motion.div
+          data-swarm="box"
           initial={{ opacity: 0, y: shouldReduce ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35 }}
@@ -83,18 +84,18 @@ const Hero = ({ onOpenPalette }) => {
           transition={{ duration: 0.45, delay: 0.08 }}
           className="text-center max-w-4xl mx-auto"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight text-white mb-5 leading-[1.05]">
+          <h1 data-swarm="text" className="text-4xl sm:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight text-white mb-5 leading-[1.05]">
             Dharamvir Singh
           </h1>
 
-          <p className="text-lg sm:text-2xl font-medium text-slate-300 mb-5 leading-relaxed">
+          <p data-swarm="text" className="text-lg sm:text-2xl font-medium text-slate-300 mb-5 leading-relaxed">
             Software Engineer building{' '}
             <span className="text-white font-semibold">scalable backend systems</span>,{' '}
             <span className="text-sky-400 font-semibold">high-efficiency data pipelines</span> &amp;{' '}
             <span className="text-indigo-300 font-semibold">agentic AI workflows</span>.
           </p>
 
-          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p data-swarm="text" className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
             Ex-SDE Intern at <strong className="text-slate-200 font-semibold">DealShare</strong>{' '}
             (slashed BigQuery scan costs by <strong className="text-emerald-400 font-semibold">57%</strong>).{' '}
             <strong className="text-amber-400 font-semibold">LeetCode Knight (1925)</strong> &amp;{' '}
@@ -110,6 +111,7 @@ const Hero = ({ onOpenPalette }) => {
           className="flex flex-wrap items-center justify-center gap-3 mb-10"
         >
           <Link
+            data-swarm="box"
             to="experience"
             smooth
             duration={500}
@@ -121,6 +123,7 @@ const Hero = ({ onOpenPalette }) => {
           </Link>
 
           <a
+            data-swarm="box"
             href="/Dharamvir_Resume.pdf"
             download="Dharamvir_Singh_Resume.pdf"
             className="btn-secondary"
@@ -130,6 +133,7 @@ const Hero = ({ onOpenPalette }) => {
           </a>
 
           <button
+            data-swarm="box"
             onClick={handleCopyEmail}
             className="btn-secondary group font-mono text-xs"
             title="Copy email to clipboard"
@@ -148,6 +152,7 @@ const Hero = ({ onOpenPalette }) => {
           </button>
 
           <button
+            data-swarm="box"
             onClick={onOpenPalette}
             className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-[10px] bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 text-xs font-mono text-slate-300 transition-colors cursor-pointer"
           >
@@ -158,6 +163,7 @@ const Hero = ({ onOpenPalette }) => {
 
         {/* Social Bar */}
         <motion.div
+          data-swarm="box"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.22 }}
@@ -188,6 +194,7 @@ const Hero = ({ onOpenPalette }) => {
           {heroMetrics.map((item) => (
             <div
               key={item.label}
+              data-swarm="box"
               className={`craft-card group relative overflow-hidden p-5 text-left border border-white/[0.08] ${item.border} transition-all duration-200`}
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

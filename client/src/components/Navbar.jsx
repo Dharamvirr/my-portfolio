@@ -41,6 +41,7 @@ const Navbar = ({ onOpenPalette }) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Monogram Brand */}
         <Link
+          data-swarm="box"
           to="hero"
           smooth
           duration={500}
@@ -98,6 +99,7 @@ const Navbar = ({ onOpenPalette }) => {
           </button>
 
           <a
+            data-swarm="box"
             href="/Dharamvir_Resume.pdf"
             download="Dharamvir_Singh_Resume.pdf"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 hover:text-white border border-white/10 transition-all duration-150"
@@ -107,6 +109,7 @@ const Navbar = ({ onOpenPalette }) => {
           </a>
 
           <Link
+            data-swarm="box"
             to="contact"
             smooth
             duration={500}

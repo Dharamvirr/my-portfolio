@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
 import CommandPalette from './components/CommandPalette'
+import SwarmBoxOverlay from './components/SwarmBoxOverlay'
 
 // Sections
 import Hero from './components/Hero'
@@ -101,6 +102,7 @@ function App() {
       </Suspense>
 
       <BackToTop />
+      <SwarmBoxOverlay />
     </div>
   )
 }
