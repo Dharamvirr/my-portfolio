@@ -136,7 +136,6 @@ function resetSwarmElements(elements) {
 function shouldAutoPlay() {
   try {
     if (typeof window === 'undefined') return false
-    if (window.innerWidth < 640) return false
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return false
     }
@@ -148,7 +147,7 @@ function shouldAutoPlay() {
 
 /* ── Task & Wave Scheduler ─────────────────────────── */
 
-function buildSchedule(targets, vw, vh) {
+function buildSchedule(targets, vw, vh, activeCursors) {
   const sorted = [...targets].sort((a, b) => {
     if (Math.abs(a.rect.top - b.rect.top) > 30) return a.rect.top - b.rect.top
     return a.rect.left - b.rect.left
@@ -172,7 +171,7 @@ function buildSchedule(targets, vw, vh) {
   })
   if (currentWave.length > 0) waves.push(currentWave)
 
-  const cursorTracks = CURSORS.map((c, idx) => ({
+  const cursorTracks = activeCursors.map((c, idx) => ({
     cursorIdx: idx,
     spawn: getEdgeSpawn(c.edge, idx, vw, vh),
     tasks: [],
@@ -189,7 +188,7 @@ function buildSchedule(targets, vw, vh) {
     const waveStart = wIdx * waveInterval
 
     wave.forEach((target, tIdx) => {
-      const ci = globalCursorPick % CURSORS.length
+      const ci = globalCursorPick % activeCursors.length
       globalCursorPick++
 
       const track = cursorTracks[ci]
@@ -273,7 +272,10 @@ const SwarmBoxOverlay = () => {
   const vGuideRefs = useRef([])
 
   const [playing, setPlaying] = useState(() => shouldAutoPlay())
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640)
   const [runId, setRunId] = useState(0)
+
+  const activeCursors = isMobile ? CURSORS.slice(0, 6) : CURSORS
 
   // Unlock AudioContext on first user interaction anywhere in window
   useEffect(() => {
@@ -334,11 +336,17 @@ const SwarmBoxOverlay = () => {
     const timer = setTimeout(() => {
       if (cancelled) return
 
-      const targets = allElements
-        .map((el) => {
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const runCursors = vw < 640 ? CURSORS.slice(0, 6) : CURSORS
+
+      const targets = []
+      allElements.forEach((el) => {
+        const r = el.getBoundingClientRect()
+        const isVisibleInViewport = r.width > 0 && r.height > 0 && r.top < vh && r.bottom > 0
+        if (isVisibleInViewport) {
           el.style.opacity = '0'
-          const r = el.getBoundingClientRect()
-          return {
+          targets.push({
             el,
             type: el.getAttribute('data-swarm') || 'box',
             rect: {
@@ -347,9 +355,13 @@ const SwarmBoxOverlay = () => {
               width: r.width,
               height: r.height,
             },
-          }
-        })
-        .filter((t) => t.rect.width > 0 && t.rect.height > 0)
+          })
+        } else {
+          // Immediately reveal hidden mobile nav items or off-screen elements
+          el.style.opacity = '1'
+          el.style.clipPath = ''
+        }
+      })
 
       if (!targets.length) {
         resetSwarmElements(allElements)
@@ -357,9 +369,7 @@ const SwarmBoxOverlay = () => {
         return
       }
 
-      const vw = window.innerWidth
-      const vh = window.innerHeight
-      const { cursorTracks, maxEndTime } = buildSchedule(targets, vw, vh)
+      const { cursorTracks, maxEndTime } = buildSchedule(targets, vw, vh, runCursors)
 
       const fadeStart = maxEndTime + 120
       const fadeDuration = 380
@@ -528,6 +538,7 @@ const SwarmBoxOverlay = () => {
   const handleReplay = () => {
     // Synchronously resume AudioContext inside user click BEFORE starting animation
     snapAudio.unlockSync()
+    setIsMobile(window.innerWidth < 640)
     if (window.scrollY > 10) {
       window.scrollTo({ top: 0, behavior: 'instant' })
     }
@@ -541,7 +552,7 @@ const SwarmBoxOverlay = () => {
         type="button"
         onClick={handleReplay}
         aria-label="Replay Swarm intro animation"
-        className="fixed bottom-6 right-20 z-40 inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#0F121A]/90 hover:bg-[#1A1F2C] border border-white/10 hover:border-sky-500/40 text-xs font-medium text-slate-300 hover:text-white shadow-xl shadow-black/40 backdrop-blur-md transition-all duration-200 cursor-pointer"
+        className="fixed bottom-5 right-[72px] sm:bottom-6 sm:right-20 z-40 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-[#0F121A]/90 hover:bg-[#1A1F2C] border border-white/10 hover:border-sky-500/40 text-[11px] sm:text-xs font-medium text-slate-300 hover:text-white shadow-xl shadow-black/40 backdrop-blur-md transition-all duration-200 cursor-pointer"
       >
         <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
         <span>Replay Swarm</span>
@@ -552,10 +563,10 @@ const SwarmBoxOverlay = () => {
   return (
     <div
       ref={overlayRef}
-      style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 9999 }}
+      style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 9999 }}
     >
       {/* ── Bright 1px Figma snap alignment guides (top & left edges, opacity 0.45) ── */}
-      {CURSORS.map((c, i) => (
+      {activeCursors.map((c, i) => (
         <div key={`guides-${c.name}`}>
           <div
             ref={(el) => {
@@ -591,7 +602,7 @@ const SwarmBoxOverlay = () => {
       ))}
 
       {/* ── Live selection boxes + 6x6 white/bordered Figma corner handles + "W × H" pills ── */}
-      {CURSORS.map((c, i) => (
+      {activeCursors.map((c, i) => (
         <div
           key={`sel-${c.name}`}
           ref={(el) => {
@@ -643,7 +654,7 @@ const SwarmBoxOverlay = () => {
       ))}
 
       {/* ── Blinking text carets ── */}
-      {CURSORS.map((c, i) => (
+      {activeCursors.map((c, i) => (
         <div
           key={`caret-${c.name}`}
           ref={(el) => {
@@ -664,8 +675,8 @@ const SwarmBoxOverlay = () => {
         />
       ))}
 
-      {/* ── 12 GPU-accelerated Figma-style cursors ── */}
-      {CURSORS.map((c, i) => (
+      {/* ── GPU-accelerated Figma-style cursors (12 desktop / 6 mobile) ── */}
+      {activeCursors.map((c, i) => (
         <div
           key={c.name}
           ref={(el) => {
@@ -680,30 +691,32 @@ const SwarmBoxOverlay = () => {
             transform: 'translate3d(-100px, -100px, 0)',
           }}
         >
-          <CursorSVG color={c.color} />
-          <span
-            style={{
-              position: 'absolute',
-              left: 15,
-              top: 13,
-              background: c.color,
-              color: '#fff',
-              fontSize: 10,
-              fontWeight: 600,
-              fontFamily: 'Inter, system-ui, sans-serif',
-              padding: '1px 7px',
-              borderRadius: 4,
-              whiteSpace: 'nowrap',
-              boxShadow: `0 2px 8px ${c.color}55`,
-              lineHeight: '14px',
-            }}
-          >
-            {c.name}
-          </span>
+          <div style={isMobile ? { transform: 'scale(0.8)', transformOrigin: 'top left' } : undefined}>
+            <CursorSVG color={c.color} />
+            <span
+              style={{
+                position: 'absolute',
+                left: 15,
+                top: 13,
+                background: c.color,
+                color: '#fff',
+                fontSize: 10,
+                fontWeight: 600,
+                fontFamily: 'Inter, system-ui, sans-serif',
+                padding: '1px 7px',
+                borderRadius: 4,
+                whiteSpace: 'nowrap',
+                boxShadow: `0 2px 8px ${c.color}55`,
+                lineHeight: '14px',
+              }}
+            >
+              {c.name}
+            </span>
+          </div>
         </div>
       ))}
 
-      {/* ── Floating "Skip (Esc)" pill at bottom-center ── */}
+      {/* ── Floating "Skip" / "Skip (Esc)" pill at bottom-center ── */}
       <button
         type="button"
         onClick={stopAndRevealAll}
@@ -717,7 +730,7 @@ const SwarmBoxOverlay = () => {
           color: '#e2e8f0',
           border: '1px solid rgba(255, 255, 255, 0.14)',
           borderRadius: 9999,
-          padding: '6px 14px',
+          padding: isMobile ? '9px 18px' : '6px 14px',
           fontSize: 12,
           fontWeight: 500,
           fontFamily: 'Inter, system-ui, sans-serif',
@@ -726,7 +739,7 @@ const SwarmBoxOverlay = () => {
           cursor: 'pointer',
         }}
       >
-        Skip (Esc)
+        {isMobile ? 'Skip' : 'Skip (Esc)'}
       </button>
     </div>
   )
