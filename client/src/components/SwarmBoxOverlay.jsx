@@ -41,12 +41,19 @@ const snapAudio = (() => {
   }
 
   return {
-    unlockSync() {
+    unlockAudio() {
       try {
         const c = getOrCreateContext()
-        if (c && c.state === 'suspended') {
+        if (!c) return
+        if (c.state === 'suspended') {
           c.resume().catch(() => {})
         }
+        // Play tiny 1-sample silent buffer synchronously inside user gesture for iOS Safari / Android Chrome
+        const buf = c.createBuffer(1, 1, 22050)
+        const src = c.createBufferSource()
+        src.buffer = buf
+        src.connect(c.destination)
+        src.start(0)
       } catch {
         // Ignore unlock errors
       }
@@ -55,25 +62,29 @@ const snapAudio = (() => {
       if (nowMs - lastPlayMs < 90) return
       try {
         const c = getOrCreateContext()
-        if (!c || c.state !== 'running') return
+        if (!c) return
+        if (c.state === 'suspended') {
+          c.resume().catch(() => {})
+        }
         lastPlayMs = nowMs
 
         const t = c.currentTime
         const osc = c.createOscillator()
         const gain = c.createGain()
+        const peakGain = window.innerWidth < 640 ? 0.28 : 0.18
 
         osc.type = 'triangle'
-        osc.frequency.setValueAtTime(650, t)
-        osc.frequency.exponentialRampToValueAtTime(220, t + 0.035)
+        osc.frequency.setValueAtTime(1200, t)
+        osc.frequency.exponentialRampToValueAtTime(480, t + 0.045)
 
-        gain.gain.setValueAtTime(0.15, t)
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.035)
+        gain.gain.setValueAtTime(peakGain, t)
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.045)
 
         osc.connect(gain)
         gain.connect(c.destination)
 
         osc.start(t)
-        osc.stop(t + 0.036)
+        osc.stop(t + 0.046)
       } catch {
         // Fail silently if audio is blocked or unavailable
       }
@@ -277,14 +288,16 @@ const SwarmBoxOverlay = () => {
 
   const activeCursors = isMobile ? CURSORS.slice(0, 6) : CURSORS
 
-  // Unlock AudioContext on first user interaction anywhere in window
+  // Unlock AudioContext on first user interaction anywhere in window (mobile + desktop)
   useEffect(() => {
     const handleUnlock = () => {
-      snapAudio.unlockSync()
+      snapAudio.unlockAudio()
     }
+    window.addEventListener('touchstart', handleUnlock, { once: true, passive: true })
     window.addEventListener('pointerdown', handleUnlock, { once: true, passive: true })
     window.addEventListener('keydown', handleUnlock, { once: true, passive: true })
     return () => {
+      window.removeEventListener('touchstart', handleUnlock)
       window.removeEventListener('pointerdown', handleUnlock)
       window.removeEventListener('keydown', handleUnlock)
     }
@@ -536,8 +549,8 @@ const SwarmBoxOverlay = () => {
   }, [playing, runId])
 
   const handleReplay = () => {
-    // Synchronously resume AudioContext inside user click BEFORE starting animation
-    snapAudio.unlockSync()
+    // Synchronously unlock & resume AudioContext inside user click BEFORE starting animation
+    snapAudio.unlockAudio()
     setIsMobile(window.innerWidth < 640)
     if (window.scrollY > 10) {
       window.scrollTo({ top: 0, behavior: 'instant' })
