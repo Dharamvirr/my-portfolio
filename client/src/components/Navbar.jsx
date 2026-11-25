@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-scroll'
-import { FiMenu, FiX, FiDownload, FiArrowUpRight, FiSearch, FiZap } from 'react-icons/fi'
+import { FiMenu, FiX, FiDownload, FiArrowUpRight, FiSearch } from 'react-icons/fi'
 import { navLinks, personalInfo } from '../data/resumeData'
 
-const Navbar = ({ onOpenPalette, onReplaySwarm }) => {
+const Navbar = ({ onOpenPalette }) => {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
@@ -84,16 +84,6 @@ const Navbar = ({ onOpenPalette, onReplaySwarm }) => {
 
         {/* Right Action Cluster */}
         <div className="hidden md:flex items-center gap-2">
-          {/* Replay Swarm Button */}
-          <button
-            onClick={onReplaySwarm}
-            title="Replay Multiplayer Swarm Build"
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-lg bg-white/[0.03] hover:bg-sky-500/10 text-slate-300 hover:text-sky-300 border border-white/[0.08] hover:border-sky-500/30 transition-all cursor-pointer"
-          >
-            <FiZap size={12} className="text-sky-400" />
-            <span>Swarm</span>
-          </button>
-
           {/* Cmd+K Command Palette Trigger */}
           <button
             onClick={onOpenPalette}
@@ -173,15 +163,6 @@ const Navbar = ({ onOpenPalette, onReplaySwarm }) => {
               ))}
 
               <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    setMenuOpen(false)
-                    onReplaySwarm?.()
-                  }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500/10 border border-sky-500/25 text-xs font-mono text-sky-300"
-                >
-                  <FiZap size={14} /> Replay Swarm Build
-                </button>
                 <a
                   href="/Dharamvir_Resume.pdf"
                   download="Dharamvir_Singh_Resume.pdf"

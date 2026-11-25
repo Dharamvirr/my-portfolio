@@ -9,7 +9,6 @@ import {
   FiCopy,
   FiCheck,
   FiArrowRight,
-  FiZap,
   FiCommand,
 } from 'react-icons/fi'
 import { SiLeetcode, SiCodeforces, SiCodechef, SiYoutube } from 'react-icons/si'
@@ -26,7 +25,7 @@ const socialLinks = [
   { icon: FiMail, href: `mailto:${personalInfo.email}`, label: 'Email' },
 ]
 
-const Hero = ({ onReplaySwarm, onOpenPalette }) => {
+const Hero = ({ onOpenPalette }) => {
   const shouldReduce = useReducedMotion()
   const [copied, setCopied] = useState(false)
 
@@ -61,7 +60,7 @@ const Hero = ({ onReplaySwarm, onOpenPalette }) => {
       />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
-        {/* Top Status + Quick Interactive Controls */}
+        {/* Top Status */}
         <motion.div
           initial={{ opacity: 0, y: shouldReduce ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -75,14 +74,6 @@ const Hero = ({ onReplaySwarm, onOpenPalette }) => {
             </span>
             <span>Open to SDE Roles (2026 Batch) · MNNIT Allahabad</span>
           </div>
-
-          <button
-            onClick={onReplaySwarm}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/25 text-[11px] font-mono font-medium text-sky-300 transition-colors cursor-pointer"
-          >
-            <FiZap size={12} />
-            <span>Replay Swarm Build</span>
-          </button>
         </motion.div>
 
         {/* Main Hero Typography */}

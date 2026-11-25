@@ -20,23 +20,12 @@ import {
 import { SiLeetcode, SiCodeforces } from 'react-icons/si'
 import { personalInfo } from '../data/resumeData'
 
-const CommandPalette = ({ open, onClose, onReplaySwarm }) => {
+const CommandPalette = ({ open, onClose }) => {
   const [query, setQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   const commands = useMemo(
     () => [
-      {
-        id: 'swarm',
-        group: 'Interactive Modes',
-        label: 'Replay Swarm Multiplayer Build',
-        shortcut: 'S',
-        icon: FiZap,
-        action: () => {
-          onClose()
-          onReplaySwarm?.()
-        },
-      },
       {
         id: 'resume',
         group: 'Quick Actions',
@@ -165,7 +154,7 @@ const CommandPalette = ({ open, onClose, onReplaySwarm }) => {
         },
       },
     ],
-    [onClose, onReplaySwarm]
+    [onClose]
   )
 
   const filtered = useMemo(() => {
@@ -238,7 +227,7 @@ const CommandPalette = ({ open, onClose, onReplaySwarm }) => {
                 autoFocus
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Type a command or search (e.g. Resume, BigQuery, GenAI, Swarm)..."
+                placeholder="Type a command or search (e.g. Resume, BigQuery, GenAI)..."
                 className="w-full bg-transparent text-sm text-white placeholder-slate-500 focus:outline-none font-sans"
               />
               <kbd className="px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white/[0.06] border border-white/10 rounded">

@@ -1,9 +1,8 @@
-import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
-import SwarmOverlay from './components/SwarmOverlay'
 import CommandPalette from './components/CommandPalette'
 
 // Sections
@@ -25,7 +24,6 @@ const SectionFallback = () => (
 
 function App() {
   const [paletteOpen, setPaletteOpen] = useState(false)
-  const [swarmActive, setSwarmActive] = useState(false)
 
   // Global Cmd+K / Ctrl+K shortcut for Command Palette
   useEffect(() => {
@@ -39,31 +37,15 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  const handleReplaySwarm = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    setSwarmActive(false)
-    requestAnimationFrame(() => {
-      setSwarmActive(true)
-    })
-  }, [])
-
-  const handleFinishSwarm = useCallback(() => {
-    setSwarmActive(false)
-  }, [])
-
   return (
     <div className="relative min-h-screen bg-[#08090C] text-[#F8FAFC]">
       {/* Precision scroll hairline */}
       <ScrollProgress />
 
-      {/* Native Multiplayer Swarm Overlay */}
-      <SwarmOverlay active={swarmActive} onFinish={handleFinishSwarm} />
-
       {/* Linear-style Cmd+K Command Palette */}
       <CommandPalette
         open={paletteOpen}
         onClose={() => setPaletteOpen(false)}
-        onReplaySwarm={handleReplaySwarm}
       />
 
       {/* Accessible Skip Link */}
@@ -99,13 +81,11 @@ function App() {
       {/* Fixed Navigation */}
       <Navbar
         onOpenPalette={() => setPaletteOpen(true)}
-        onReplaySwarm={handleReplaySwarm}
       />
 
       {/* Main Content Landmarks */}
       <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero
-          onReplaySwarm={handleReplaySwarm}
           onOpenPalette={() => setPaletteOpen(true)}
         />
         <Suspense fallback={<SectionFallback />}><About /></Suspense>
