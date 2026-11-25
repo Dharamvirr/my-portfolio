@@ -25,7 +25,7 @@ const SectionFallback = () => (
 
 function App() {
   const [paletteOpen, setPaletteOpen] = useState(false)
-  const [swarmActive, setSwarmActive] = useState(true)
+  const [swarmActive, setSwarmActive] = useState(false)
 
   // Global Cmd+K / Ctrl+K shortcut for Command Palette
   useEffect(() => {
